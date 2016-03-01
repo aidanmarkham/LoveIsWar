@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,17 +8,18 @@ using System.Text;
 namespace LoveIsWar
 {
     //Holds info about the player
-    class Player
+    class Player: GameObject
     {
-        Vector2 location;
-        
-        public Player()
+
+
+        public Player(Texture2D tex)
+            : base(tex)
         {
-            location = new Vector2(0, 0);
+            
         }
         public void Update(Vector2 newLoc)
         {
-            location += newLoc;
+            base.location += newLoc;
         }
     }
 }

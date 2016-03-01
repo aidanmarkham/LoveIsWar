@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
+using System.Collections.Generic;
 
 namespace LoveIsWar
 {
@@ -12,10 +14,18 @@ namespace LoveIsWar
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        List<GameObject> gameObjects; // This list should contain everything that needs to be drawn on screen, with the exception of UI
+
+
+        Player player; // Creates a new player object
+        Texture2D playerTexture; // makes a texture to hold the texture for the player
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            
         }
 
         /// <summary>
@@ -27,6 +37,10 @@ namespace LoveIsWar
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+
+            gameObjects = new List<GameObject>(); // inits the list
+            
+            
 
             base.Initialize();
         }
@@ -40,7 +54,11 @@ namespace LoveIsWar
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            playerTexture = Content.Load<Texture2D>("Images/Level1/AyumiDraft2_SpriteOnly"); // loads the player texture
+            player = new Player(playerTexture); // constructs the player with the texture
+            gameObjects.Add(player); // adds the player to the lits of things that will be drawn
+            
+
         }
 
         /// <summary>
@@ -75,6 +93,13 @@ namespace LoveIsWar
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            spriteBatch.Begin();
+
+            for (int i = 0; i < gameObjects.Count; i++) // this for loop goes through the list of everything that should be drawn
+            {
+                spriteBatch.Draw(gameObjects[i].texture, gameObjects[i].location, Color.White);
+            }
+                spriteBatch.End();
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
