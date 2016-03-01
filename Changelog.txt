@@ -1,1 +1,3 @@
 0.5: Added changelog
+0.6: Added player to the game, created the GameObject class, imported images. 
+0.7: Updated Changelog, Oops
