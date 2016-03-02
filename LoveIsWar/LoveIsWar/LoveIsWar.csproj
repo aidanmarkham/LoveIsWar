@@ -61,7 +61,11 @@
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Content\Background_Draft1.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\Level1\AyumiDraft2_SpriteOnly.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
