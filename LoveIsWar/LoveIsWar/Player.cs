@@ -20,6 +20,14 @@ namespace LoveIsWar
         public void Update(Vector2 newLoc)
         {
             base.location += newLoc;
+            if (location.X < 0)
+            {
+                location.X = 0;
+            }
+            else if (location.Y < 0)
+            {
+                location.Y = 0;
+            } //else if (location.Y > texture.Width )
         }
     }
 }
