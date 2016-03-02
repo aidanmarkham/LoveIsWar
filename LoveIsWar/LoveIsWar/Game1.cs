@@ -56,6 +56,8 @@ namespace LoveIsWar
 
             playerTexture = Content.Load<Texture2D>("Images/Level1/AyumiDraft2_SpriteOnly"); // loads the player texture
             player = new Player(playerTexture); // constructs the player with the texture
+
+
             gameObjects.Add(player); // adds the player to the lits of things that will be drawn
             
 
@@ -80,9 +82,13 @@ namespace LoveIsWar
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            for (int i = 0; i < gameObjects.Count; i++)
+            {
+                gameObjects[i].Update();
+            }
 
-            base.Update(gameTime);
+
+                base.Update(gameTime);
         }
 
         /// <summary>
@@ -99,7 +105,8 @@ namespace LoveIsWar
             {
                 spriteBatch.Draw(gameObjects[i].texture, gameObjects[i].location, Color.White);
             }
-                spriteBatch.End();
+
+            spriteBatch.End();
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
