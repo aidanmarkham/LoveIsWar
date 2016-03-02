@@ -16,9 +16,11 @@ namespace LoveIsWar
 
         List<GameObject> gameObjects; // This list should contain everything that needs to be drawn on screen, with the exception of UI
 
-
+        Level bg; //create a level object 
         Player player; // Creates a new player object
+        Texture2D bgTexture; //creates a texture for the background
         Texture2D playerTexture; // makes a texture to hold the texture for the player
+        
 
         public Game1()
         {
@@ -54,10 +56,13 @@ namespace LoveIsWar
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            bgTexture = Content.Load<Texture2D>("Background_Draft1");//load in background texture
+            bg = new Level(bgTexture); //construct level object with the textue loaded
+
             playerTexture = Content.Load<Texture2D>("Images/Level1/AyumiDraft2_SpriteOnly"); // loads the player texture
             player = new Player(playerTexture); // constructs the player with the texture
 
-
+            gameObjects.Add(bg); //adds a level object to the array of things to be drawn
             gameObjects.Add(player); // adds the player to the lits of things that will be drawn
             
 
