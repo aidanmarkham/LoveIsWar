@@ -39,7 +39,8 @@ namespace LoveIsWar
                 velocity.X = speed;
             }
 
-            location = location + velocity;
+            location.X = location.X + (int)velocity.X;
+            location.Y = location.Y + (int)velocity.Y;
 
             velocity = velocity / dampening;
 

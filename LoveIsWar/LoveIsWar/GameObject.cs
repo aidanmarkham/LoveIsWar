@@ -10,14 +10,15 @@ namespace LoveIsWar
     
     class GameObject
     {
-        public Vector2 location;
+        public Rectangle location;
         public Vector2 velocity;
         public float dampening;
         public Texture2D texture;
         public GameObject(Texture2D tex)
         {
-            location = new Vector2(0, 1);
+            
             texture = tex;
+            location = new Rectangle(0, 0, texture.Width, texture.Height);
             dampening = 1;
         }
         public float Dampening
@@ -25,7 +26,11 @@ namespace LoveIsWar
             get { return dampening; }
             set { dampening = value; }
         }
-        public void Update()
+        public virtual void Draw(SpriteBatch sb)
+        {
+            sb.Draw(texture, location, Color.White);
+        }
+        public virtual void Update()
         {
 
         }

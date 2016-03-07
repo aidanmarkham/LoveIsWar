@@ -108,7 +108,8 @@ namespace LoveIsWar
 
             for (int i = 0; i < gameObjects.Count; i++) // this for loop goes through the list of everything that should be drawn
             {
-                spriteBatch.Draw(gameObjects[i].texture, gameObjects[i].location, Color.White);
+                //spriteBatch.Draw(gameObjects[i].texture, gameObjects[i].location, Color.White);
+                gameObjects[i].Draw(spriteBatch);
             }
 
             spriteBatch.End();
