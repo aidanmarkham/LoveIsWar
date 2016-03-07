@@ -41,9 +41,9 @@ namespace LoveIsWar
             // TODO: Add your initialization logic here
 
             gameObjects = new List<GameObject>(); // inits the list
-            
-            
 
+
+            
             base.Initialize();
         }
 
@@ -91,7 +91,7 @@ namespace LoveIsWar
             {
                 gameObjects[i].Update();
             }
-
+            player.Update(Keyboard.GetState());
 
                 base.Update(gameTime);
         }
