@@ -21,14 +21,16 @@ namespace LoveIsWar
         Texture2D bgTexture; //creates a texture for the background
         Texture2D playerTexture; // makes a texture to hold the texture for the player
         Texture2D bulletTexture; // makes a texture for the bullets in the game
-        
+        Texture2D menuImg;
 
+        GameState gameState;
+        enum GameState { Menu, Game };
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            
+
         }
 
         /// <summary>
@@ -43,8 +45,8 @@ namespace LoveIsWar
 
             gameObjects = new List<GameObject>(); // inits the list
 
+            gameState = GameState.Menu;
 
-            
             base.Initialize();
         }
 
@@ -60,17 +62,19 @@ namespace LoveIsWar
             bgTexture = Content.Load<Texture2D>("Background_Draft1");//load in background texture
             bg = new Level(bgTexture); //construct level object with the textue loaded
 
+            menuImg = Content.Load<Texture2D>("Images/Menu/menu");
+
             playerTexture = Content.Load<Texture2D>("Images/Level1/AyumiDraft2_SpriteOnly"); // loads the player texture
             player = new Player(playerTexture); // constructs the player with the texture
 
             bulletTexture = Content.Load<Texture2D>("Bullet"); //loads in bullet texture
-            
+
 
             gameObjects.Add(bg); //adds a level object to the array of things to be drawn
             gameObjects.Add(player); // adds the player to the lits of things that will be drawn
 
 
-            
+
 
         }
 
@@ -92,14 +96,23 @@ namespace LoveIsWar
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
-            for (int i = 0; i < gameObjects.Count; i++)
+            if (gameState == GameState.Menu)
             {
-                gameObjects[i].Update();
+                if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                {
+                    gameState = GameState.Game;
+                }
+                    
             }
-            player.Update(Keyboard.GetState());
-
-                base.Update(gameTime);
+            if (gameState == GameState.Game)
+            {
+                for (int i = 0; i < gameObjects.Count; i++)
+                {
+                    gameObjects[i].Update();
+                }
+                player.Update(Keyboard.GetState());
+            }
+            base.Update(gameTime);
         }
 
         /// <summary>
@@ -111,13 +124,18 @@ namespace LoveIsWar
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
-
-            for (int i = 0; i < gameObjects.Count; i++) // this for loop goes through the list of everything that should be drawn
+            if (gameState == GameState.Menu)
             {
-                //spriteBatch.Draw(gameObjects[i].texture, gameObjects[i].location, Color.White);
-                gameObjects[i].Draw(spriteBatch);
+                spriteBatch.Draw(menuImg, new Rectangle(0, 0, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width/2, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height/2), Color.White);
             }
-
+            if (gameState == GameState.Game)
+            {
+                for (int i = 0; i < gameObjects.Count; i++) // this for loop goes through the list of everything that should be drawn
+                {
+                    //spriteBatch.Draw(gameObjects[i].texture, gameObjects[i].location, Color.White);
+                    gameObjects[i].Draw(spriteBatch);
+                }
+            }
             spriteBatch.End();
             // TODO: Add your drawing code here
 
