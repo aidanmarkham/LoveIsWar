@@ -54,7 +54,18 @@ namespace LoveIsWar
             } //else if (location.Y > texture.Width )
         }
 
-        
+
+        /*//Player Shoot Method
+        public override void Shoot(Texture2D bulletTexture, SpriteBatch spritebatch)
+        {
+            //creates a new bullet object
+            Bullet playerBullet = new Bullet(bulletTexture);
+
+            //draws the bullet at the position of the player
+            playerBullet.Draw(spritebatch);
+       
+            
+        } */
 
         public float Speed
         {

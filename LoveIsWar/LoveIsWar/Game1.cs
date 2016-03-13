@@ -109,6 +109,7 @@ namespace LoveIsWar
                 for (int i = 0; i < gameObjects.Count; i++)
                 {
                     gameObjects[i].Update();
+                    
                 }
                 player.Update(Keyboard.GetState());
             }

@@ -14,6 +14,8 @@ namespace LoveIsWar
         public Vector2 velocity;
         public float dampening;
         public Texture2D texture;
+        
+        //Game object Constructor
         public GameObject(Texture2D tex)
         {
             
@@ -21,6 +23,8 @@ namespace LoveIsWar
             location = new Rectangle(0, 0, texture.Width, texture.Height);
             dampening = 1;
         }
+
+
         public float Dampening
         {
             get { return dampening; }
@@ -33,6 +37,12 @@ namespace LoveIsWar
         public virtual void Update()
         {
 
+        }
+
+        //Shoot method, overridden by both Player and Enemies
+        public virtual void Shoot() 
+        {
+        
         }
     }
 }
