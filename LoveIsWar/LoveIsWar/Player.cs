@@ -92,8 +92,8 @@ namespace LoveIsWar
         public override void Shoot()
         {
             //creates a new bullet object
-            Bullet bullet = playerBullet;
-            bullets.Add(bullet);
+            
+            bullets.Add(new Bullet(playerBullet));
         } 
 
         public float Speed

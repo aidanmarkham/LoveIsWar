@@ -24,6 +24,12 @@ namespace LoveIsWar
         {
             this.active = true;
         }
+        public Bullet(Bullet bullet) : base(bullet.texture)
+        {
+            this.active = bullet.active;
+            this.location = bullet.location;
+
+        }
 
         /*//CheckCollision method
         public Boolean CheckCollision(GameObject gameObject)
