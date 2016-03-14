@@ -69,7 +69,7 @@ namespace LoveIsWar
         public override void Shoot(Texture2D bulletTexture, SpriteBatch spritebatch)
         {
             //creates a new bullet object
-            bullet.Add(playerBullet);
+            bullets.Add(playerBullet);
 
             //draws the bullet at the position of the player
             
