@@ -12,7 +12,7 @@ namespace LoveIsWar
     class Player: GameObject
     {
         float speed;
-
+        List<Bullet> bullets = new List<Bullet>();
         public Player(Texture2D tex)
             : base(tex)
         {
@@ -51,7 +51,15 @@ namespace LoveIsWar
             else if (location.Y < 0)
             {
                 location.Y = 0;
-            } //else if (location.Y > texture.Width )
+            }
+            else if (location.X > GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width - location.Width)
+            {
+                location.X = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width - location.Width;
+            }
+            else if (location.Y > GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - location.Height)
+            {
+                location.Y = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - location.Height;
+            }
         }
 
 

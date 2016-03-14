@@ -59,8 +59,8 @@ namespace LoveIsWar
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            bgTexture = Content.Load<Texture2D>("Background_Draft1");//load in background texture
-            bg = new Level(bgTexture); //construct level object with the textue loaded
+            bgTexture = Content.Load<Texture2D>("Images/Level1/Background_Draft1");//load in background texture
+            bg = new Level(bgTexture, this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height); //construct level object with the textue loaded
 
             menuImg = Content.Load<Texture2D>("Images/Menu/menu");
 
@@ -127,7 +127,7 @@ namespace LoveIsWar
             spriteBatch.Begin();
             if (gameState == GameState.Menu)
             {
-                spriteBatch.Draw(menuImg, new Rectangle(0, 0, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width/2, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height/2), Color.White);
+                spriteBatch.Draw(menuImg, new Rectangle(0, 0, this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height), Color.White);
             }
             if (gameState == GameState.Game)
             {

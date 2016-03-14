@@ -10,17 +10,17 @@ namespace LoveIsWar
     //will do things like load level and handle the movement
     class Level: GameObject
     {
-        public Level(Texture2D tex)
+        public Level(Texture2D tex, int w, int h)
             : base(tex)
         {
-            location.Width = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            location.Height = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            location.Width = w;
+            location.Height = h;
         }
         public override void Update()
         {
             
             location.Y += 3;
-            if (location.Y > GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height)
+            if (location.Y > location.Height)
             {
                 location.Y = 0;
             }
