@@ -65,10 +65,10 @@ namespace LoveIsWar
             menuImg = Content.Load<Texture2D>("Images/Menu/menu");
 
             playerTexture = Content.Load<Texture2D>("Images/Level1/AyumiDraft2_SpriteOnly"); // loads the player texture
-            player = new Player(playerTexture); // constructs the player with the texture
+            
 
             bulletTexture = Content.Load<Texture2D>("Bullet"); //loads in bullet texture
-
+            player = new Player(playerTexture, bulletTexture); // constructs the player with the texture
 
             gameObjects.Add(bg); //adds a level object to the array of things to be drawn
             gameObjects.Add(player); // adds the player to the lits of things that will be drawn

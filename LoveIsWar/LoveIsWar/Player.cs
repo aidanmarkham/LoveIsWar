@@ -13,9 +13,11 @@ namespace LoveIsWar
     {
         float speed;
         List<Bullet> bullets = new List<Bullet>();
-        public Player(Texture2D tex)
+        Bullet playerBullet;
+        public Player(Texture2D tex, Texture2D bulletTex)
             : base(tex)
         {
+            playerBullet = new Bullet(bulletTex);
             speed = 3;
             dampening = 1.3f;
         }
@@ -63,17 +65,17 @@ namespace LoveIsWar
         }
 
 
-        /*//Player Shoot Method
+        //Player Shoot Method
         public override void Shoot(Texture2D bulletTexture, SpriteBatch spritebatch)
         {
             //creates a new bullet object
-            Bullet playerBullet = new Bullet(bulletTexture);
+            bullet.Add(playerBullet);
 
             //draws the bullet at the position of the player
-            playerBullet.Draw(spritebatch);
+            
        
             
-        } */
+        } 
 
         public float Speed
         {
