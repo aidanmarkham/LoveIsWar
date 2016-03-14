@@ -111,7 +111,7 @@ namespace LoveIsWar
                     gameObjects[i].Update();
                     
                 }
-                player.Update(Keyboard.GetState());
+                player.Update(Keyboard.GetState(), this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height);
             }
             base.Update(gameTime);
         }

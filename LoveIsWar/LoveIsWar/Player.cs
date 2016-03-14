@@ -21,7 +21,7 @@ namespace LoveIsWar
             speed = 3;
             dampening = 1.3f;
         }
-        public void Update(KeyboardState kb)
+        public void Update(KeyboardState kb, int screenWidth, int screenHeight)
         {
 
             if (kb.IsKeyDown(Keys.Up))
@@ -40,38 +40,56 @@ namespace LoveIsWar
             {
                 velocity.X = speed;
             }
+            if (kb.IsKeyDown(Keys.Space))
+            {
+                Shoot();
+            }
+            //This code block handles player movement
+
 
             location.X = location.X + (int)velocity.X;
             location.Y = location.Y + (int)velocity.Y;
+            //Update the players location
 
             velocity = velocity / dampening;
+            //dampen the player's speed
 
             if (location.X < 0)
             {
                 location.X = 0;
             }
-            else if (location.Y < 0)
+            if (location.Y < 0)
             {
                 location.Y = 0;
             }
-            else if (location.X > GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width - location.Width)
+            if (location.X > screenWidth - location.Width)
             {
-                location.X = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width - location.Width;
+                location.X = screenWidth - location.Width;
             }
-            else if (location.Y > GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - location.Height)
+            if (location.Y > screenHeight - location.Height)
             {
-                location.Y = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - location.Height;
+                location.Y = screenHeight - location.Height;
             }
+            // keep the player on screen.
+
+            playerBullet.location = location;
+            //updates the location of the default bullet
+
+            for (int i = 0; i < bullets.Count; i++)
+            {
+                bullets[i].Update();
+            }
+            //update the player's bullets
         }
 
 
         //Player Shoot Method
-        public override void Shoot(Texture2D bulletTexture, SpriteBatch spritebatch)
+        public void Shoot()
         {
             //creates a new bullet object
             bullets.Add(playerBullet);
 
-            //draws the bullet at the position of the player
+           
             
        
             
@@ -81,6 +99,15 @@ namespace LoveIsWar
         {
             get { return speed; }
             set { speed = value;}
+        }
+
+        public override void Draw(SpriteBatch sb)
+        {
+            for (int i = 0; i < bullets.Count; i++)
+            {
+                sb.Draw(bullets[i].texture, bullets[i].location, Color.White);
+            }
+            base.Draw(sb);
         }
     }
 }
