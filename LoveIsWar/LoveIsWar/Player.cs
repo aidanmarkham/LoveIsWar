@@ -16,6 +16,11 @@ namespace LoveIsWar
         Bullet playerBullet;
         int screenWidth;
         int screenHeight;
+
+        double bulletTime;
+
+        int fireRate;
+
         public Player(Texture2D tex, Texture2D bulletTex, int scrWidth, int scrHeight)
             : base(tex)
         {
@@ -25,8 +30,10 @@ namespace LoveIsWar
             playerBullet = new Bullet(bulletTex);
             speed = 3;
             dampening = 1.3f;
+            bulletTime = 0;
+            fireRate = 100;
         }
-        public void Update(KeyboardState kb)
+        public void Update(KeyboardState kb, TimeSpan deltaTime)
         {
 
             if (kb.IsKeyDown(Keys.Up))
@@ -47,7 +54,12 @@ namespace LoveIsWar
             }
             if (kb.IsKeyDown(Keys.Space))
             {
-                Shoot();
+                if (bulletTime > fireRate)
+                {
+                    Shoot();
+                    bulletTime = 0;
+                }
+                
             }
             //This code block handles player movement
 
@@ -85,6 +97,9 @@ namespace LoveIsWar
                 bullets[i].Update();
             }
             //update the player's bullets
+
+            bulletTime += deltaTime.Milliseconds;
+            
         }
 
 
