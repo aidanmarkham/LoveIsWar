@@ -14,14 +14,19 @@ namespace LoveIsWar
         float speed;
         List<Bullet> bullets = new List<Bullet>();
         Bullet playerBullet;
-        public Player(Texture2D tex, Texture2D bulletTex)
+        int screenWidth;
+        int screenHeight;
+        public Player(Texture2D tex, Texture2D bulletTex, int scrWidth, int scrHeight)
             : base(tex)
         {
+            screenWidth = scrWidth;
+            screenHeight = scrHeight;
+            location = new Rectangle(screenWidth/2, scrHeight - texture.Height, texture.Width, texture.Height);
             playerBullet = new Bullet(bulletTex);
             speed = 3;
             dampening = 1.3f;
         }
-        public void Update(KeyboardState kb, int screenWidth, int screenHeight)
+        public void Update(KeyboardState kb)
         {
 
             if (kb.IsKeyDown(Keys.Up))
@@ -84,15 +89,11 @@ namespace LoveIsWar
 
 
         //Player Shoot Method
-        public void Shoot()
+        public override void Shoot()
         {
             //creates a new bullet object
-            bullets.Add(playerBullet);
-
-           
-            
-       
-            
+            Bullet bullet = playerBullet;
+            bullets.Add(bullet);
         } 
 
         public float Speed

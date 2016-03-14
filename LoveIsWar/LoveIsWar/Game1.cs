@@ -68,7 +68,7 @@ namespace LoveIsWar
             
 
             bulletTexture = Content.Load<Texture2D>("Bullet"); //loads in bullet texture
-            player = new Player(playerTexture, bulletTexture); // constructs the player with the texture
+            player = new Player(playerTexture, bulletTexture, this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height); // constructs the player with the texture
 
             gameObjects.Add(bg); //adds a level object to the array of things to be drawn
             gameObjects.Add(player); // adds the player to the lits of things that will be drawn
@@ -111,7 +111,7 @@ namespace LoveIsWar
                     gameObjects[i].Update();
                     
                 }
-                player.Update(Keyboard.GetState(), this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height);
+                player.Update(Keyboard.GetState());
             }
             base.Update(gameTime);
         }
@@ -136,6 +136,14 @@ namespace LoveIsWar
                     //spriteBatch.Draw(gameObjects[i].texture, gameObjects[i].location, Color.White);
                     gameObjects[i].Draw(spriteBatch);
                 }
+
+
+
+                //----------------------------------------------
+                //All UI drawing goes after this line
+
+
+
             }
             spriteBatch.End();
             // TODO: Add your drawing code here
