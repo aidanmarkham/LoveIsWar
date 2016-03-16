@@ -28,7 +28,7 @@ namespace LoveIsWar
             screenHeight = scrHeight;
             location = new Rectangle(screenWidth/2, scrHeight - texture.Height, texture.Width, texture.Height);
             playerBullet = new Bullet(bulletTex);
-            speed = 3;
+            speed = 6;
             dampening = 1.3f;
             bulletTime = 0;
             fireRate = 100;

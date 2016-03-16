@@ -10,7 +10,10 @@ namespace LoveIsWar
     class Bullet: GameObject
     {
         //is the bullet active or not
-        Boolean active;
+        private Boolean active;
+
+        //speed of the bullet
+        private float speed;
 
         //Active property
         public Boolean Active
@@ -28,16 +31,38 @@ namespace LoveIsWar
         {
             this.active = bullet.active;
             this.location = bullet.location;
-
+            this.speed = 10;
         }
 
-        /*//CheckCollision method
+        //CheckCollision method (returns a boolean to be checked in the update method)
         public Boolean CheckCollision(GameObject gameObject)
         {
             if (active == true)
             {
-                
+                if (this.location.Intersects(gameObject.location) == true)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-        } */
+            else
+            {
+                return false;
+            }
+        }
+
+        //Bullet update method
+        public override void Update()
+        {
+            //bullets move constantly upward
+            velocity.Y = -speed;
+            location.Y = location.Y + (int)velocity.Y;
+
+            //if(CheckCollision()) not sure where to implement this
+
+        }
     }
 }
