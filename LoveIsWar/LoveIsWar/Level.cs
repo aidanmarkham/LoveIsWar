@@ -15,8 +15,9 @@ namespace LoveIsWar
         int targetScore; //this holds the target score until the level boss appears
         List<Enemy> enemies; // this list holds all the enemies that are active
 
+        Texture2D enemyTexture;
 
-        public Level(Texture2D tex, int w, int h)
+        public Level(Texture2D tex, Texture2D enemTex, int w, int h)
             : base(tex)
         {
             targetScore = int.MaxValue; // default value, this means that the level wont end for a long long time.
@@ -25,6 +26,8 @@ namespace LoveIsWar
             location.Width = w; // gets the width and height of the screen
             location.Height = h;
             enemies = new List<Enemy>(); //inits the list for enemies
+
+            enemyTexture = enemTex;
         }
         public override void Update(TimeSpan deltaTime)
         {
@@ -52,9 +55,13 @@ namespace LoveIsWar
         {
             sb.Draw(texture, new Rectangle(location.X, location.Y - location.Height, location.Width, location.Height), Color.White); // draw one level
             sb.Draw(texture, location, Color.White); // draw the other level image
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                enemies[i].Draw(sb);
+            }
         }
         public void SpawnEnemy(){
-
+            enemies.Add(new Enemy(enemyTexture));
         }
     }
 }

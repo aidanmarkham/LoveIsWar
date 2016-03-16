@@ -21,6 +21,7 @@ namespace LoveIsWar
         Texture2D bgTexture; //creates a texture for the background
         Texture2D playerTexture; // makes a texture to hold the texture for the player
         Texture2D bulletTexture; // makes a texture for the bullets in the game
+        Texture2D enemyTexture;
         Texture2D menuImg;
 
         GameState gameState;
@@ -60,7 +61,8 @@ namespace LoveIsWar
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             bgTexture = Content.Load<Texture2D>("Images/Level1/Background_Draft1");//load in background texture
-            level = new Level(bgTexture, this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height); //construct level object with the textue loaded
+            enemyTexture = Content.Load<Texture2D>("Images/Level1/AkihiroSenpaiDraft1_SpriteOnly");
+            level = new Level(bgTexture, enemyTexture, this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height); //construct level object with the textue loaded
 
             menuImg = Content.Load<Texture2D>("Images/Menu/menu"); // image for menu, will be stretched across screen
 
@@ -69,7 +71,7 @@ namespace LoveIsWar
 
             bulletTexture = Content.Load<Texture2D>("Bullet"); //loads in bullet texture
             player = new Player(playerTexture, bulletTexture, this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height); // constructs the player with the texture
-
+            
             //gameObjects.Add(level); //adds a level object to the array of things to be drawn
             //gameObjects.Add(player); // adds the player to the lits of things that will be drawn
 

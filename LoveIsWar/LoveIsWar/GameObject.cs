@@ -25,7 +25,7 @@ namespace LoveIsWar
         }
 
 
-        public float Dampening
+        public float Dampening 
         {
             get { return dampening; }
             set { dampening = value; }
