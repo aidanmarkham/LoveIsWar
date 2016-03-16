@@ -21,6 +21,12 @@ namespace LoveIsWar
             get { return active; }
             set { active = value; }
         }
+        //Bullet Speed property
+        public float Speed
+        {
+            get { return speed; }
+            set { speed = value; }
+        }
 
         public Bullet(Texture2D tex)
             : base(tex)
