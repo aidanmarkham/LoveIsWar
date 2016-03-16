@@ -34,7 +34,7 @@ namespace LoveIsWar
         {
             sb.Draw(texture, location, Color.White);
         }
-        public virtual void Update()
+        public virtual void Update(TimeSpan deltaTime)
         {
 
         }

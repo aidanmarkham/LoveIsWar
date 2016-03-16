@@ -55,7 +55,7 @@ namespace LoveIsWar
         }
 
         //Bullet update method
-        public override void Update()
+        public override void Update(TimeSpan deltaTime)
         {
             //bullets move constantly upward
             velocity.Y = -speed;

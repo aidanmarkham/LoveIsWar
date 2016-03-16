@@ -10,26 +10,51 @@ namespace LoveIsWar
     //will do things like load level and handle the movement
     class Level: GameObject
     {
+        TimeSpan enemyPeriod; // this holds the frequency that enemies should be spawned
+        TimeSpan enemyCounter; // this holds how long it's been since the last time an enemy spawned
+        int targetScore; //this holds the target score until the level boss appears
+        List<Enemy> enemies; // this list holds all the enemies that are active
+
+
         public Level(Texture2D tex, int w, int h)
             : base(tex)
         {
-            location.Width = w;
+            targetScore = int.MaxValue; // default value, this means that the level wont end for a long long time.
+            enemyPeriod = new TimeSpan(0, 0, 0, 0, 500); //set the period for this level
+            enemyCounter = new TimeSpan(0); // inits the counter for enemies
+            location.Width = w; // gets the width and height of the screen
             location.Height = h;
+            enemies = new List<Enemy>(); //inits the list for enemies
         }
-        public override void Update()
+        public override void Update(TimeSpan deltaTime)
         {
-            
-            location.Y += 3;
-            if (location.Y > location.Height)
+            enemyCounter += deltaTime; //increases the counter by the amount of time since the last update
+            location.Y += 3; //moves the floor 
+            if (location.Y > location.Height) //if the floor gets to far away, bring it back
             {
                 location.Y = 0;
             }
-            base.Update();
+
+            for (int i = 0; i < enemies.Count; i++) //update all the enemies
+            {
+                enemies[i].Update(deltaTime);
+            }
+
+            if (enemyCounter > enemyPeriod) // if the enemy counter gets to a large enough amount of time, reset the counter and spawn an enewy
+            {
+                enemyCounter = new TimeSpan(0);
+                SpawnEnemy();
+            }
+
+            base.Update(deltaTime);
         }
         public override void Draw(SpriteBatch sb)
         {
             sb.Draw(texture, new Rectangle(location.X, location.Y - location.Height, location.Width, location.Height), Color.White);
             sb.Draw(texture, location, Color.White);
+        }
+        public void SpawnEnemy(){
+
         }
     }
 }

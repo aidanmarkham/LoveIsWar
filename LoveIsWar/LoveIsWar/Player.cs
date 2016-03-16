@@ -94,7 +94,7 @@ namespace LoveIsWar
 
             for (int i = 0; i < bullets.Count; i++)
             {
-                bullets[i].Update();
+                bullets[i].Update(deltaTime);
             }
             //update the player's bullets
 
