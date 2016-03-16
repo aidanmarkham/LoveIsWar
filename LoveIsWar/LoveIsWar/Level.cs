@@ -50,8 +50,8 @@ namespace LoveIsWar
         }
         public override void Draw(SpriteBatch sb)
         {
-            sb.Draw(texture, new Rectangle(location.X, location.Y - location.Height, location.Width, location.Height), Color.White);
-            sb.Draw(texture, location, Color.White);
+            sb.Draw(texture, new Rectangle(location.X, location.Y - location.Height, location.Width, location.Height), Color.White); // draw one level
+            sb.Draw(texture, location, Color.White); // draw the other level image
         }
         public void SpawnEnemy(){
 

@@ -62,7 +62,7 @@ namespace LoveIsWar
             bgTexture = Content.Load<Texture2D>("Images/Level1/Background_Draft1");//load in background texture
             level = new Level(bgTexture, this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height); //construct level object with the textue loaded
 
-            menuImg = Content.Load<Texture2D>("Images/Menu/menu");
+            menuImg = Content.Load<Texture2D>("Images/Menu/menu"); // image for menu, will be stretched across screen
 
             playerTexture = Content.Load<Texture2D>("Images/Level1/AyumiDraft2_SpriteOnly"); // loads the player texture
             
@@ -70,8 +70,8 @@ namespace LoveIsWar
             bulletTexture = Content.Load<Texture2D>("Bullet"); //loads in bullet texture
             player = new Player(playerTexture, bulletTexture, this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height); // constructs the player with the texture
 
-            gameObjects.Add(level); //adds a level object to the array of things to be drawn
-            gameObjects.Add(player); // adds the player to the lits of things that will be drawn
+            //gameObjects.Add(level); //adds a level object to the array of things to be drawn
+            //gameObjects.Add(player); // adds the player to the lits of things that will be drawn
 
 
 
@@ -95,23 +95,25 @@ namespace LoveIsWar
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-            if (gameState == GameState.Menu)
+                Exit(); // allows escape and back on the controller to update the game
+
+            if (gameState == GameState.Menu) // first state of finite state machine
             {
-                if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                if (Keyboard.GetState().IsKeyDown(Keys.Enter)) //move to the game on the press of the enter key
                 {
                     gameState = GameState.Game;
                 }
                     
             }
-            if (gameState == GameState.Game)
+            if (gameState == GameState.Game) // second state of finite state machine
             {
                 for (int i = 0; i < gameObjects.Count; i++)
                 {
-                    gameObjects[i].Update(gameTime.ElapsedGameTime);
+                    gameObjects[i].Update(gameTime.ElapsedGameTime); //update all of the default gameobjects
                     
                 }
                 player.Update(Keyboard.GetState(), gameTime.ElapsedGameTime);
+                level.Update(gameTime.ElapsedGameTime);
             }
             base.Update(gameTime);
         }
@@ -124,19 +126,20 @@ namespace LoveIsWar
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin();
-            if (gameState == GameState.Menu)
+            spriteBatch.Begin(); // begin the spritebatch
+            if (gameState == GameState.Menu) // if in the menu, just draw the menu
             {
                 spriteBatch.Draw(menuImg, new Rectangle(0, 0, this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height), Color.White);
             }
-            if (gameState == GameState.Game)
+            if (gameState == GameState.Game) //if in the gamestate
             {
+                level.Draw(spriteBatch); // draw the level
                 for (int i = 0; i < gameObjects.Count; i++) // this for loop goes through the list of everything that should be drawn
                 {
                     //spriteBatch.Draw(gameObjects[i].texture, gameObjects[i].location, Color.White);
                     gameObjects[i].Draw(spriteBatch);
                 }
-
+                player.Draw(spriteBatch); // draw the player
 
 
                 //----------------------------------------------

@@ -10,15 +10,15 @@ namespace LoveIsWar
     
     class GameObject
     {
-        public Rectangle location;
-        public Vector2 velocity;
-        public float dampening;
-        public Texture2D texture;
+        public Rectangle location; //holds the location, width, and height of the object
+        public Vector2 velocity; //holds the velocity of the object
+        public float dampening; //holds the dampening value
+        public Texture2D texture; //holds the texture 
         
         //Game object Constructor
         public GameObject(Texture2D tex)
         {
-            
+            //instantiates to default values
             texture = tex;
             location = new Rectangle(0, 0, texture.Width, texture.Height);
             dampening = 1;

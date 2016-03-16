@@ -61,7 +61,7 @@ namespace LoveIsWar
                 }
                 
             }
-            //This code block handles player movement
+            //This code block handles player movement and shooting
 
 
             location.X = location.X + (int)velocity.X;
@@ -98,7 +98,7 @@ namespace LoveIsWar
             }
             //update the player's bullets
 
-            bulletTime += deltaTime.Milliseconds;
+            bulletTime += deltaTime.Milliseconds; //updates bullet counter
             
         }
 
@@ -119,7 +119,7 @@ namespace LoveIsWar
 
         public override void Draw(SpriteBatch sb)
         {
-            for (int i = 0; i < bullets.Count; i++)
+            for (int i = 0; i < bullets.Count; i++) // draw the bullets
             {
                 sb.Draw(bullets[i].texture, bullets[i].location, Color.White);
             }
