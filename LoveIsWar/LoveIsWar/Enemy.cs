@@ -13,7 +13,7 @@ namespace LoveIsWar
         public Enemy(Texture2D tex)
             : base(tex)
         {
-            rand = new Random();
+            rand = new Random(); // random for random location
 
             location.X = rand.Next(0, 800);
         }
