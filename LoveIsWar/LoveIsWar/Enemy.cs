@@ -19,6 +19,7 @@ namespace LoveIsWar
         }
         public override void Update(TimeSpan deltaTime) {
             location.Y += (int)(0.1 * deltaTime.Milliseconds);
-        }
+        }
+
     }
 }
