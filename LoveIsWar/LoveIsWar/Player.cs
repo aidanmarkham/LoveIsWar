@@ -9,7 +9,7 @@ using System.Text;
 namespace LoveIsWar
 {
     //Holds info about the player
-    class Player: GameObject
+    class Player : GameObject
     {
         float speed;
         List<Bullet> bullets = new List<Bullet>();
@@ -26,14 +26,14 @@ namespace LoveIsWar
         {
             screenWidth = scrWidth;
             screenHeight = scrHeight;
-            location = new Rectangle(screenWidth/2, scrHeight - texture.Height, texture.Width, texture.Height);
+            location = new Rectangle(screenWidth / 2, scrHeight - texture.Height, texture.Width, texture.Height);
             playerBullet = new Bullet(bulletTex);
             speed = 6;
             dampening = 1.3f;
             bulletTime = 0;
             fireRate = 100;
         }
-        public void Update(KeyboardState kb, TimeSpan deltaTime)
+        public void Update(KeyboardState kb, TimeSpan deltaTime, Level level)
         {
 
             if (kb.IsKeyDown(Keys.Up))
@@ -59,7 +59,7 @@ namespace LoveIsWar
                     Shoot();
                     bulletTime = 0;
                 }
-                
+
             }
             //This code block handles player movement and shooting
 
@@ -94,12 +94,31 @@ namespace LoveIsWar
 
             for (int i = 0; i < bullets.Count; i++)
             {
-                bullets[i].Update(deltaTime);
+                if (bullets[i] != null)
+                {
+                    bullets[i].Update(deltaTime);
+                }
             }
             //update the player's bullets
 
+
+            for (int i = 0; i < bullets.Count; i++)
+            {
+                for (int j = 0; j < level.Enemies.Count; j++)
+                {
+                    if (level.Enemies[j] != null && bullets[i] != null)
+                    {
+                        if (bullets[i].CheckCollision(level.Enemies[j]))
+                        {
+                            level.Enemies[j] = null;
+                            bullets[i] = null;
+                        }
+                    }
+                }
+            }
+
             bulletTime += deltaTime.Milliseconds; //updates bullet counter
-            
+
         }
 
 
@@ -107,21 +126,24 @@ namespace LoveIsWar
         public override void Shoot()
         {
             //creates a new bullet object
-            
+
             bullets.Add(new Bullet(playerBullet));
-        } 
+        }
 
         public float Speed
         {
             get { return speed; }
-            set { speed = value;}
+            set { speed = value; }
         }
 
         public override void Draw(SpriteBatch sb)
         {
             for (int i = 0; i < bullets.Count; i++) // draw the bullets
             {
-                sb.Draw(bullets[i].texture, bullets[i].location, Color.White);
+                if (bullets[i] != null)
+                {
+                    sb.Draw(bullets[i].texture, bullets[i].location, Color.White);
+                }
             }
             base.Draw(sb);
         }

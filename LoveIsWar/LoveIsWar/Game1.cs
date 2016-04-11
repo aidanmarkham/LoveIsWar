@@ -62,7 +62,7 @@ namespace LoveIsWar
 
             bgTexture = Content.Load<Texture2D>("Images/Level1/Background_Draft1");//load in background texture
             enemyTexture = Content.Load<Texture2D>("Images/Level1/AkihiroSenpaiDraft1_SpriteOnly");
-            level = new Level(bgTexture, enemyTexture, this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height); //construct level object with the textue loaded
+            
 
             menuImg = Content.Load<Texture2D>("Images/Menu/menu"); // image for menu, will be stretched across screen
 
@@ -74,7 +74,7 @@ namespace LoveIsWar
             
             //gameObjects.Add(level); //adds a level object to the array of things to be drawn
             //gameObjects.Add(player); // adds the player to the lits of things that will be drawn
-
+            level = new Level(bgTexture, enemyTexture, bulletTexture, this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height); //construct level object with the textue loaded
 
 
 
@@ -114,7 +114,7 @@ namespace LoveIsWar
                     gameObjects[i].Update(gameTime.ElapsedGameTime); //update all of the default gameobjects
                     
                 }
-                player.Update(Keyboard.GetState(), gameTime.ElapsedGameTime);
+                player.Update(Keyboard.GetState(), gameTime.ElapsedGameTime, level);
                 level.Update(gameTime.ElapsedGameTime);
             }
             base.Update(gameTime);

@@ -48,6 +48,7 @@ namespace LoveIsWar
                 if (this.location.Intersects(gameObject.location) == true)
                 {
                     return true;
+                    
                 }
                 else
                 {
@@ -58,6 +59,7 @@ namespace LoveIsWar
             {
                 return false;
             }
+            
         }
 
         //Bullet update method

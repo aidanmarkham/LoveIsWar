@@ -14,6 +14,7 @@ namespace LoveIsWar
         public Vector2 velocity; //holds the velocity of the object
         public float dampening; //holds the dampening value
         public Texture2D texture; //holds the texture 
+        public bool alive;
         
         //Game object Constructor
         public GameObject(Texture2D tex)
@@ -22,9 +23,14 @@ namespace LoveIsWar
             texture = tex;
             location = new Rectangle(0, 0, texture.Width, texture.Height);
             dampening = 1;
+            alive = true;
         }
 
-
+        public Rectangle Location
+        {
+            set { location = value; }
+            get { return location; }
+        }
         public float Dampening 
         {
             get { return dampening; }
@@ -32,7 +38,10 @@ namespace LoveIsWar
         }
         public virtual void Draw(SpriteBatch sb)
         {
-            sb.Draw(texture, location, Color.White);
+            if (alive)
+            {
+                sb.Draw(texture, location, Color.White);
+            }
         }
         public virtual void Update(TimeSpan deltaTime)
         {
