@@ -59,7 +59,7 @@
     <Content Include="Content\Bullet.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Images\Level1\AkihiroSenpaiDraft1_SpriteOnly.png">
+    <Content Include="Content\Images\Level1\Senpai.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Images\Menu\menu.png">

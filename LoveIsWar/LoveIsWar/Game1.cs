@@ -61,7 +61,7 @@ namespace LoveIsWar
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             bgTexture = Content.Load<Texture2D>("Images/Level1/Background_Draft1");//load in background texture
-            enemyTexture = Content.Load<Texture2D>("Images/Level1/AkihiroSenpaiDraft1_SpriteOnly");
+            enemyTexture = Content.Load<Texture2D>("Images/Level1/Senpai");
             
 
             menuImg = Content.Load<Texture2D>("Images/Menu/menu"); // image for menu, will be stretched across screen
