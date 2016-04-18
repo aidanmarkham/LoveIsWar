@@ -16,6 +16,9 @@ namespace LoveIsWar
         Bullet playerBullet;
         int screenWidth;
         int screenHeight;
+        int lives = 3; // number of times the player can be hit by bullets before it's game over
+        int score = 0; // current score
+        Boolean isDead = false;
 
         double bulletTime;
 
@@ -33,6 +36,21 @@ namespace LoveIsWar
             bulletTime = 0;
             fireRate = 100;
         }
+
+        // property that returns the current number of lives the player has
+        public int Lives
+        {
+            get { return lives; }
+            set { lives = value; }
+        }
+
+        // property that returns whether or not the player is dead/ should cause the game to go to a game over screen
+        public Boolean IsDead
+        {
+            get { return isDead; }
+            set { isDead = value; }
+        }
+
         public void Update(KeyboardState kb, TimeSpan deltaTime, Level level)
         {
 
@@ -61,6 +79,8 @@ namespace LoveIsWar
                 }
 
             }
+
+
             //This code block handles player movement and shooting
 
 
@@ -101,7 +121,7 @@ namespace LoveIsWar
             }
             //update the player's bullets
 
-
+            // handles when player bullets hit enemies
             for (int i = 0; i < bullets.Count; i++)
             {
                 for (int j = 0; j < level.Enemies.Count; j++)
@@ -112,12 +132,32 @@ namespace LoveIsWar
                         {
                             level.Enemies[j] = null;
                             bullets[i] = null;
+                            score += 100; // add 100 to the score each time an enemy is killed
                         }
                     }
                 }
             }
 
-            bulletTime += deltaTime.Milliseconds; //updates bullet counter
+            // handles when the player is hit by a bullet- reduces number of lives left
+            for (int i = 0; i < bullets.Count; i++)
+            {
+                if (bullets[i] != null)
+                {
+                    if (bullets[i].CheckCollision(this))
+                    {
+                        //bullets[i] = null;  this just causes the player bullets to disappear when they're fired
+                        lives--;
+                    }
+                }
+            }
+
+            // if lives = 0, the player is dead
+            if (lives <= 0)
+            {
+                isDead = true;
+            }
+
+                bulletTime += deltaTime.Milliseconds; //updates bullet counter
 
         }
 
