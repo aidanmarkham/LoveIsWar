@@ -51,6 +51,13 @@ namespace LoveIsWar
             set { isDead = value; }
         }
 
+        // propert that returns the score of the player
+        public int Score
+        {
+            get { return score; }
+            set { score = value; }
+        }
+
         public void Update(KeyboardState kb, TimeSpan deltaTime, Level level)
         {
 
