@@ -16,8 +16,8 @@ namespace LoveIsWar
         List<Enemy> enemies; // this list holds all the enemies that are active
         Texture2D enemyBullet;
         Texture2D enemyTexture;
-
-        public Level(Texture2D tex, Texture2D enemTex, Texture2D enemBullet, int w, int h)
+        Player player;
+        public Level(Texture2D tex, Texture2D enemTex, Texture2D enemBullet, int w, int h, Player play)
             : base(tex)
         {
             targetScore = int.MaxValue; // default value, this means that the level wont end for a long long time.
@@ -29,6 +29,7 @@ namespace LoveIsWar
 
             enemyTexture = enemTex;
             enemyBullet = enemBullet;
+            player = play;
         }
         public override void Update(TimeSpan deltaTime)
         {
@@ -76,7 +77,7 @@ namespace LoveIsWar
             }
         }
         public void SpawnEnemy(){
-            enemies.Add(new Enemy(enemyTexture, enemyBullet));
+            enemies.Add(new Enemy(enemyTexture, enemyBullet, player));
         }
         public List<Enemy> Enemies
         {
