@@ -173,9 +173,6 @@ namespace LoveIsWar
                 isDead = true;
             }
 
-
-            
-
                 bulletTime += deltaTime.Milliseconds; //updates bullet counter
 
         }

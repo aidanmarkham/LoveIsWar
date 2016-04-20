@@ -84,7 +84,7 @@ namespace LoveIsWar
             
             //gameObjects.Add(level); //adds a level object to the array of things to be drawn
             //gameObjects.Add(player); // adds the player to the lits of things that will be drawn
-            level = new Level(bgTexture, enemyTexture, bulletTexture, this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height, player); //construct level object with the textue loaded
+            level = new Level(bgTexture, enemyTexture, bulletTexture, this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height); //construct level object with the textue loaded
 
 
 

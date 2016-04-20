@@ -15,8 +15,7 @@ namespace LoveIsWar
         List<Bullet> bullets;
         int bulletTime;
         int fireRate;
-        GameObject player;
-        public Enemy(Texture2D tex, Texture2D bullet, Player pl)
+        public Enemy(Texture2D tex, Texture2D bullet)
             : base(tex)
         {
             enemyBullet = bullet;
@@ -26,7 +25,6 @@ namespace LoveIsWar
             location.Y = -tex.Height;
             location.X = rand.Next(0, 800 - tex.Width);
             bullets = new List<Bullet>();
-            player = pl;
         }
 
 
