@@ -23,9 +23,13 @@ namespace LoveIsWar
         Texture2D bulletTexture; // makes a texture for the bullets in the game
         Texture2D enemyTexture;
         Texture2D menuImg;
+        Texture2D button1;
+        Texture2D controls;
+        SpriteFont buttonWord;
+        SpriteFont controlScreen;
 
         GameState gameState;
-        enum GameState { Menu, Game };
+        enum GameState { Menu, Game, Controls };
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -61,10 +65,16 @@ namespace LoveIsWar
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             bgTexture = Content.Load<Texture2D>("Images/Level1/Background_Draft1");//load in background texture
-            enemyTexture = Content.Load<Texture2D>("Images/Level1/Senpai");
+            enemyTexture = Content.Load<Texture2D>("Images/Level1/Senpai"); 
             
 
-            menuImg = Content.Load<Texture2D>("Images/Menu/menu"); // image for menu, will be stretched across screen
+            //menuImg = Content.Load<Texture2D>("Images/Menu/menu"); // image for menu, will be stretched across screen
+
+            button1 = Content.Load<Texture2D>("unfinishedButton");//image for the button
+            buttonWord = Content.Load<SpriteFont>("mainFont");//font for the button
+
+            controlScreen = Content.Load<SpriteFont>("mainFont");//font for the controls
+            controls = Content.Load<Texture2D>("Controls");//image for the controls
 
             playerTexture = Content.Load<Texture2D>("Images/Level1/AyumiDraft2_SpriteOnly"); // loads the player texture
             
@@ -101,10 +111,39 @@ namespace LoveIsWar
 
             if (gameState == GameState.Menu) // first state of finite state machine
             {
-                if (Keyboard.GetState().IsKeyDown(Keys.Enter)) //move to the game on the press of the enter key
+                MouseState ms = Mouse.GetState();
+
+                if (ms.LeftButton == ButtonState.Pressed)//tests if its on the start button
                 {
-                    gameState = GameState.Game;
+                    if (ms.Position.X >= (this.GraphicsDevice.Viewport.Width / 2) - 100 && ms.Position.X <= ((this.GraphicsDevice.Viewport.Width / 2) - 100) + 200)
+                    {
+                        if (ms.Position.Y >= (this.GraphicsDevice.Viewport.Height / 2) - 100 && ms.Position.Y <= ((this.GraphicsDevice.Viewport.Height / 2) - 100) + 50)
+                        {
+                            gameState = GameState.Game;
+                        }
+                    }
                 }
+                if (ms.LeftButton == ButtonState.Pressed)//tests if its on the controls button
+                {
+                    if (ms.Position.X >= (this.GraphicsDevice.Viewport.Width / 2) - 100 && ms.Position.X <= ((this.GraphicsDevice.Viewport.Width / 2) - 100) + 200)
+                    {
+                        if (ms.Position.Y >= (this.GraphicsDevice.Viewport.Height / 2) && ms.Position.Y <= ((this.GraphicsDevice.Viewport.Height / 2)) + 50)
+                        {
+                            gameState = GameState.Controls;
+                        }
+                    }
+                }
+                if (ms.LeftButton == ButtonState.Pressed)//tests if its on the quit button
+                {
+                    if (ms.Position.X >= (this.GraphicsDevice.Viewport.Width / 2) - 100 && ms.Position.X <= ((this.GraphicsDevice.Viewport.Width / 2) - 100) + 200)
+                    {
+                        if (ms.Position.Y >= (this.GraphicsDevice.Viewport.Height / 2) + 100 && ms.Position.Y <= ((this.GraphicsDevice.Viewport.Height / 2) + 100) + 50)
+                        {
+                            System.Environment.Exit(0);
+                        }
+                    }
+                }
+                
                     
             }
             if (gameState == GameState.Game) // second state of finite state machine
@@ -117,8 +156,24 @@ namespace LoveIsWar
                 player.Update(Keyboard.GetState(), gameTime.ElapsedGameTime, level);
                 level.Update(gameTime.ElapsedGameTime);
             }
+            if(gameState == GameState.Controls)//third state of the finite state machine
+            {
+                MouseState ms = Mouse.GetState();
+
+                if (ms.LeftButton == ButtonState.Pressed)//tests if its on the back button
+                {
+                    if (ms.Position.X >= (this.GraphicsDevice.Viewport.Width / 2) + 200 && ms.Position.X <= ((this.GraphicsDevice.Viewport.Width / 2) + 200) + 200)
+                    {
+                        if (ms.Position.Y >= (this.GraphicsDevice.Viewport.Height / 2 -200) && ms.Position.Y <= ((this.GraphicsDevice.Viewport.Height / 2 -200) + 50))
+                        {
+                            gameState = GameState.Menu;
+                        }
+                    }
+                }
+            }
             base.Update(gameTime);
         }
+        
 
         /// <summary>
         /// This is called when the game should draw itself.
@@ -131,10 +186,31 @@ namespace LoveIsWar
             spriteBatch.Begin(); // begin the spritebatch
             if (gameState == GameState.Menu) // if in the menu, just draw the menu
             {
-                spriteBatch.Draw(menuImg, new Rectangle(0, 0, this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height), Color.White);
+                this.IsMouseVisible = true;
+                //spriteBatch.Draw(menuImg, new Rectangle(0, 0, this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height), Color.White);
+                Button startButton = new Button((this.GraphicsDevice.Viewport.Width / 2) - 100, (this.GraphicsDevice.Viewport.Height / 2) - 100 , 200, 50, button1, buttonWord);//start button
+                Button controlsButton = new Button((this.GraphicsDevice.Viewport.Width / 2) - 100, this.GraphicsDevice.Viewport.Height/2, 200, 50, button1, buttonWord);//controls button
+                Button quitButton = new Button((this.GraphicsDevice.Viewport.Width / 2) - 100, (this.GraphicsDevice.Viewport.Height / 2) + 100, 200, 50, button1, buttonWord);//quit button
+                startButton.Drawbutton(spriteBatch, "Start");
+                controlsButton.Drawbutton(spriteBatch, "Controls");
+                quitButton.Drawbutton(spriteBatch, "Quit");
+
+                spriteBatch.DrawString(controlScreen, "LOVE IS WAR", new Vector2((this.GraphicsDevice.Viewport.Width / 2) - 100, 50), Color.Black);
+                
+            }
+            if(gameState == GameState.Controls)
+            {
+                spriteBatch.DrawString(controlScreen, "Arrow keys to move", new Vector2(50, 50), Color.Black);
+                spriteBatch.DrawString(controlScreen, "Space bar to shoot", new Vector2(50, 80), Color.Black);
+                spriteBatch.Draw(controls, new Vector2(100, 100), Color.White);
+
+                Button backButton = new Button((this.GraphicsDevice.Viewport.Width / 2) + 200, this.GraphicsDevice.Viewport.Height / 2 -200, 200, 50, button1, buttonWord);//controls button
+                backButton.Drawbutton(spriteBatch, "Back");
             }
             if (gameState == GameState.Game) //if in the gamestate
             {
+                this.IsMouseVisible = false;
+
                 level.Draw(spriteBatch); // draw the level
                 for (int i = 0; i < gameObjects.Count; i++) // this for loop goes through the list of everything that should be drawn
                 {
