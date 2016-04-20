@@ -114,6 +114,15 @@ namespace LoveIsWar
                             bullets[i] = null;
                         }
                     }
+                    /*
+                    for (int k = 0; k < level.Enemies[j].Bullets.Count; k++)
+                    {
+                        if (level.Enemies[j].Bullets[k].CheckCollision(this))
+                        {
+                            System.Threading.Thread.Sleep(5);
+                        }
+                    }
+                     * */
                 }
             }
 

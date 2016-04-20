@@ -47,7 +47,7 @@ namespace LoveIsWar
             {
                 bullets[i].Update(deltaTime);
             }
-                bulletTime += deltaTime.Milliseconds; //updates bullet counter
+            bulletTime += deltaTime.Milliseconds; //updates bullet counter
         }
 
         public override void Draw(SpriteBatch sb)
@@ -60,6 +60,10 @@ namespace LoveIsWar
             base.Draw(sb);
         }
 
-
+        public List<Bullet> Bullets
+        {
+            set { bullets = value; }
+            get { return bullets; }
+        }
     }
 }
