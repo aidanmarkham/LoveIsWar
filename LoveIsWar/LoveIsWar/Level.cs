@@ -17,6 +17,7 @@ namespace LoveIsWar
         Texture2D enemyBullet;
         Texture2D enemyTexture;
         Player player;
+        Random rand;
 
         public Level(Texture2D tex, Texture2D enemTex, Texture2D enemBullet, int w, int h, Player gamePlayer)
             : base(tex)
@@ -32,6 +33,7 @@ namespace LoveIsWar
             enemyBullet = enemBullet;
 
             player = gamePlayer;
+            rand = new Random();
         }
         public override void Update(TimeSpan deltaTime)
         {
@@ -79,7 +81,7 @@ namespace LoveIsWar
             }
         }
         public void SpawnEnemy(){
-            enemies.Add(new Enemy(enemyTexture, enemyBullet, player));
+            enemies.Add(new Enemy(enemyTexture, enemyBullet, player, rand));
         }
         public List<Enemy> Enemies
         {

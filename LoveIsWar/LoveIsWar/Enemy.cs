@@ -17,11 +17,11 @@ namespace LoveIsWar
         int fireRate;
         Player player;
 
-        public Enemy(Texture2D tex, Texture2D bullet, Player gamePlayer)
+        public Enemy(Texture2D tex, Texture2D bullet, Player gamePlayer, Random rand)
             : base(tex)
         {
             enemyBullet = bullet;
-            rand = new Random(); // random for random location
+            
             bulletTime = 0;
             fireRate = 500;
             location.Y = -tex.Height;
