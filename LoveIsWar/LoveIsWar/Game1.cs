@@ -29,7 +29,7 @@ namespace LoveIsWar
         SpriteFont controlScreen;
 
         GameState gameState;
-        enum GameState { Menu, Game, Controls };
+        enum GameState { Menu, Game, Controls, Gameover };
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -119,10 +119,14 @@ namespace LoveIsWar
                     {
                         if (ms.Position.Y >= (this.GraphicsDevice.Viewport.Height / 2) - 100 && ms.Position.Y <= ((this.GraphicsDevice.Viewport.Height / 2) - 100) + 50)
                         {
+                            player.Lives = 100;
+                            player.Score = 0;
                             gameState = GameState.Game;
                         }
                     }
                 }
+
+
                 if (ms.LeftButton == ButtonState.Pressed)//tests if its on the controls button
                 {
                     if (ms.Position.X >= (this.GraphicsDevice.Viewport.Width / 2) - 100 && ms.Position.X <= ((this.GraphicsDevice.Viewport.Width / 2) - 100) + 200)
@@ -143,35 +147,83 @@ namespace LoveIsWar
                         }
                     }
                 }
-                
-                    
-            }
-            if (gameState == GameState.Game) // second state of finite state machine
-            {
-                for (int i = 0; i < gameObjects.Count; i++)
-                {
-                    gameObjects[i].Update(gameTime.ElapsedGameTime); //update all of the default gameobjects
-                    
-                }
-                player.Update(Keyboard.GetState(), gameTime.ElapsedGameTime, level);
-                level.Update(gameTime.ElapsedGameTime);
-            }
-            if(gameState == GameState.Controls)//third state of the finite state machine
-            {
-                MouseState ms = Mouse.GetState();
 
-                if (ms.LeftButton == ButtonState.Pressed)//tests if its on the back button
+
+            }
+                if (gameState == GameState.Game) // second state of finite state machine
                 {
-                    if (ms.Position.X >= (this.GraphicsDevice.Viewport.Width / 2) + 200 && ms.Position.X <= ((this.GraphicsDevice.Viewport.Width / 2) + 200) + 200)
+                    for (int i = 0; i < gameObjects.Count; i++)
                     {
-                        if (ms.Position.Y >= (this.GraphicsDevice.Viewport.Height / 2 -200) && ms.Position.Y <= ((this.GraphicsDevice.Viewport.Height / 2 -200) + 50))
+                        gameObjects[i].Update(gameTime.ElapsedGameTime); //update all of the default gameobjects
+
+                    }
+                    player.Update(Keyboard.GetState(), gameTime.ElapsedGameTime, level);
+                    level.Update(gameTime.ElapsedGameTime);
+                    if (player.Lives <= 0)
+                    {
+                        gameState = GameState.Gameover;
+                    }
+                }
+                if (gameState == GameState.Controls)//third state of the finite state machine
+                {
+
+                    MouseState mouseState = Mouse.GetState();
+
+                    if (mouseState.LeftButton == ButtonState.Pressed)//tests if its on the back button
+                    {
+                        if (mouseState.Position.X >= (this.GraphicsDevice.Viewport.Width / 2) + 200 && mouseState.Position.X <= ((this.GraphicsDevice.Viewport.Width / 2) + 200) + 200)
                         {
-                            gameState = GameState.Menu;
+                            if (mouseState.Position.Y >= (this.GraphicsDevice.Viewport.Height / 2 - 200) && mouseState.Position.Y <= ((this.GraphicsDevice.Viewport.Height / 2 - 200) + 50))
+                            {
+                                gameState = GameState.Menu;
+                            }
                         }
                     }
                 }
-            }
-            base.Update(gameTime);
+                if (gameState == GameState.Gameover)
+                {
+                    MouseState ms = Mouse.GetState();
+
+                    if (ms.LeftButton == ButtonState.Pressed)//tests if its on the restart button
+                    {
+                        if (ms.Position.X >= (this.GraphicsDevice.Viewport.Width / 2) - 100 && ms.Position.X <= ((this.GraphicsDevice.Viewport.Width / 2) - 100) + 200)
+                        {
+                            if (ms.Position.Y >= (this.GraphicsDevice.Viewport.Height / 2) - 100 && ms.Position.Y <= ((this.GraphicsDevice.Viewport.Height / 2) - 100) + 50)
+                            {
+                                player.Lives = 100;
+                                player.Score = 0;
+                                gameState = GameState.Game;
+                            }
+                        }
+                    }
+
+
+                    if (ms.LeftButton == ButtonState.Pressed)//tests if its on the mainmenu button
+                    {
+                        if (ms.Position.X >= (this.GraphicsDevice.Viewport.Width / 2) - 100 && ms.Position.X <= ((this.GraphicsDevice.Viewport.Width / 2) - 100) + 200)
+                        {
+                            if (ms.Position.Y >= (this.GraphicsDevice.Viewport.Height / 2) && ms.Position.Y <= ((this.GraphicsDevice.Viewport.Height / 2)) + 50)
+                            {
+                                player.Lives = 100;
+                                player.Score = 0;
+                                gameState = GameState.Menu;
+                            }
+                        }
+                    }
+                    if (ms.LeftButton == ButtonState.Pressed)//tests if its on the quit button
+                    {
+                        if (ms.Position.X >= (this.GraphicsDevice.Viewport.Width / 2) - 100 && ms.Position.X <= ((this.GraphicsDevice.Viewport.Width / 2) - 100) + 200)
+                        {
+                            if (ms.Position.Y >= (this.GraphicsDevice.Viewport.Height / 2) + 100 && ms.Position.Y <= ((this.GraphicsDevice.Viewport.Height / 2) + 100) + 50)
+                            {
+                                System.Environment.Exit(0);
+                            }
+                        }
+                    }
+
+                }
+                base.Update(gameTime);
+            
         }
         
 
@@ -222,9 +274,24 @@ namespace LoveIsWar
 
                 //----------------------------------------------
                 //All UI drawing goes after this line
+                
+                spriteBatch.DrawString(controlScreen, "Score: "+player.Score , new Vector2(0, 0), Color.Black);
+                spriteBatch.DrawString(controlScreen, "Health: " + player.Lives, new Vector2(670,450), Color.Black);
 
+            }
+            if (gameState == GameState.Gameover) // if in the menu, just draw the menu
+            {
+                this.IsMouseVisible = true;
+                //spriteBatch.Draw(menuImg, new Rectangle(0, 0, this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height), Color.White);
+                Button startButton = new Button((this.GraphicsDevice.Viewport.Width / 2) - 100, (this.GraphicsDevice.Viewport.Height / 2) - 100, 200, 50, button1, buttonWord);//restart button
+                Button mainButton = new Button((this.GraphicsDevice.Viewport.Width / 2) - 100, this.GraphicsDevice.Viewport.Height / 2, 200, 50, button1, buttonWord);//mainmenu button
+                Button quitButton = new Button((this.GraphicsDevice.Viewport.Width / 2) - 100, (this.GraphicsDevice.Viewport.Height / 2) + 100, 200, 50, button1, buttonWord);//quit button
+                startButton.Drawbutton(spriteBatch, "Restart");
+                mainButton.Drawbutton(spriteBatch, "MainMenu");
+                quitButton.Drawbutton(spriteBatch, "Quit");
 
-
+                spriteBatch.DrawString(controlScreen, "LOVE IS WAR", new Vector2((this.GraphicsDevice.Viewport.Width / 2) - 100, 50), Color.Black);
+                spriteBatch.DrawString(controlScreen, "Score: "+ player.Score, new Vector2((this.GraphicsDevice.Viewport.Width / 2) - 100, 100), Color.Black);
             }
             spriteBatch.End();
             // TODO: Add your drawing code here
