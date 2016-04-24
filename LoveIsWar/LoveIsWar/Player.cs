@@ -24,6 +24,13 @@ namespace LoveIsWar
 
         int fireRate;
 
+        public void Reset()
+        {
+            lives = 100;
+            score = 0;
+            bullets = new List<Bullet>();
+        }
+
         public Player(Texture2D tex, Texture2D bulletTex, int scrWidth, int scrHeight)
             : base(tex)
         {
