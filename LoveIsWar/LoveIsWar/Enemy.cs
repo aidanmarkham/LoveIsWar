@@ -25,7 +25,7 @@ namespace LoveIsWar
             bulletTime = 0;
             fireRate = 1000;
             location.Y = -tex.Height;
-            location.X = rand.Next(0, 800 - tex.Width);
+            location.X = rand.Next(0, 600 - tex.Width);
             bullets = new List<Bullet>();
             player = gamePlayer;
         }

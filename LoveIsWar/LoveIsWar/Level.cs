@@ -57,6 +57,17 @@ namespace LoveIsWar
                 enemyCounter = new TimeSpan(0);
                 SpawnEnemy();
             }
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                if (enemies[i] != null)
+                {
+                    if (enemies[i].location.Y > location.Height)
+                    {
+                        enemies[i] = null;
+                        player.Score -= 200;
+                    }
+                }
+            }
 
             for (int i = 0; i < enemies.Count; i++)
             {
@@ -65,6 +76,7 @@ namespace LoveIsWar
                     enemies.RemoveAt(i);
                 }
             }
+            
 
             base.Update(deltaTime);
         }
