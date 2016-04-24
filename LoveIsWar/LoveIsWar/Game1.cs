@@ -179,7 +179,7 @@ namespace LoveIsWar
 
                     if (mouseState.LeftButton == ButtonState.Pressed)//tests if its on the back button
                     {
-                        if (mouseState.Position.X >= (this.GraphicsDevice.Viewport.Width / 2) + 200 && mouseState.Position.X <= ((this.GraphicsDevice.Viewport.Width / 2) + 200) + 200)
+                        if (mouseState.Position.X >= (this.GraphicsDevice.Viewport.Width / 2) + 100 && mouseState.Position.X <= ((this.GraphicsDevice.Viewport.Width / 2) + 100) + 200)
                         {
                             if (mouseState.Position.Y >= (this.GraphicsDevice.Viewport.Height / 2 - 200) && mouseState.Position.Y <= ((this.GraphicsDevice.Viewport.Height / 2 - 200) + 50))
                             {
@@ -188,7 +188,7 @@ namespace LoveIsWar
                         }
                     }
                 }
-                if (gameState == GameState.Gameover)
+                if (gameState == GameState.Gameover)//fourth state in the finite state machine
                 {
                     MouseState ms = Mouse.GetState();
 
@@ -202,6 +202,7 @@ namespace LoveIsWar
                                 player.Score = 0;
                                 level.Enemies = new List<Enemy>();
                                 player.Bullets = new List<Bullet>();
+                                
                                 gameState = GameState.Game;
                             }
                         }
@@ -264,9 +265,10 @@ namespace LoveIsWar
             {
                 spriteBatch.DrawString(controlScreen, "Arrow keys to move", new Vector2(50, 50), Color.Black);
                 spriteBatch.DrawString(controlScreen, "Space bar to shoot", new Vector2(50, 80), Color.Black);
-                spriteBatch.Draw(controls, new Vector2(100, 100), Color.White);
+                spriteBatch.DrawString(controlScreen, "Escape to quit at anytime", new Vector2(50, 110), Color.Black);
+                spriteBatch.Draw(controls, new Vector2(-10, 100), Color.White);
 
-                Button backButton = new Button((this.GraphicsDevice.Viewport.Width / 2) + 200, this.GraphicsDevice.Viewport.Height / 2 -200, 200, 50, button1, buttonWord);//controls button
+                Button backButton = new Button((this.GraphicsDevice.Viewport.Width / 2) + 100, this.GraphicsDevice.Viewport.Height / 2 -200, 200, 50, button1, buttonWord);//controls button
                 backButton.Drawbutton(spriteBatch, "Back");
             }
             if (gameState == GameState.Game) //if in the gamestate
