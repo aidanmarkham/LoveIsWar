@@ -15,16 +15,19 @@ namespace LoveIsWar
         List<Bullet> bullets;
         int bulletTime;
         int fireRate;
-        public Enemy(Texture2D tex, Texture2D bullet)
+        Player player;
+
+        public Enemy(Texture2D tex, Texture2D bullet, Player gamePlayer, Random rand)
             : base(tex)
         {
             enemyBullet = bullet;
-            rand = new Random(); // random for random location
+            
             bulletTime = 0;
             fireRate = 500;
             location.Y = -tex.Height;
             location.X = rand.Next(0, 800 - tex.Width);
             bullets = new List<Bullet>();
+            player = gamePlayer;
         }
 
 
@@ -45,7 +48,17 @@ namespace LoveIsWar
             }
             for (int i = 0; i < bullets.Count; i++)
             {
-                bullets[i].Update(deltaTime);
+                //handles when bullets collide with the player
+                if (bullets[i] != null)
+                {
+                    bullets[i].Update(deltaTime);
+
+                    if (bullets[i].CheckCollision(player) == true)
+                    {
+                        player.Lives--;
+                        bullets[i] = null;
+                    }
+                }
             }
             bulletTime += deltaTime.Milliseconds; //updates bullet counter
         }
@@ -54,7 +67,10 @@ namespace LoveIsWar
         {
             for (int i = 0; i < bullets.Count; i++)
             {
-                sb.Draw(enemyBullet, bullets[i].location, Color.White);
+                if (bullets[i] != null)
+                {
+                    sb.Draw(enemyBullet, bullets[i].location, Color.White);
+                }
             }
 
             base.Draw(sb);
