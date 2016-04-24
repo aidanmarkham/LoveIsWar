@@ -36,12 +36,7 @@ namespace LoveIsWar
             bulletTime = 0;
             fireRate = 100;
         }
-        public void Reset()
-        {
-            lives = 100;
-            score = 0;
-            bullets = new List<Bullet>();
-        }
+
         // property that returns the current number of lives the player has
         public int Lives
         {
