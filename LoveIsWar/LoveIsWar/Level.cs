@@ -23,7 +23,7 @@ namespace LoveIsWar
             : base(tex)
         {
             targetScore = int.MaxValue; // default value, this means that the level wont end for a long long time.
-            enemyPeriod = new TimeSpan(0, 0, 0, 0, 500); //set the period for this level
+            enemyPeriod = new TimeSpan(0, 0, 0, 0, 1000); //set the period for this level
             enemyCounter = new TimeSpan(0); // inits the counter for enemies
             location.Width = w; // gets the width and height of the screen
             location.Height = h;
