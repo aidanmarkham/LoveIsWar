@@ -35,7 +35,8 @@ namespace LoveIsWar
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-
+            graphics.PreferredBackBufferWidth = 600;  // set this value to the desired width of your window
+            graphics.PreferredBackBufferHeight = 720;
         }
 
         /// <summary>
