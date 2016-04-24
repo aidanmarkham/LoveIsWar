@@ -88,6 +88,13 @@ namespace LoveIsWar
 
 
 
+
+
+            //TESTING
+            ExternalReader exRead = new ExternalReader();
+            exRead.Read("images.dat");
+            exRead.Test();
+            //TESTING
         }
 
         /// <summary>
