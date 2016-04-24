@@ -200,6 +200,8 @@ namespace LoveIsWar
                             {
                                 player.Lives = 100;
                                 player.Score = 0;
+                                level.Enemies = new List<Enemy>();
+                                player.Bullets = new List<Bullet>();
                                 gameState = GameState.Game;
                             }
                         }
@@ -284,7 +286,7 @@ namespace LoveIsWar
                 //All UI drawing goes after this line
                 
                 spriteBatch.DrawString(controlScreen, "Score: "+player.Score , new Vector2(0, 0), Color.Black);
-                spriteBatch.DrawString(controlScreen, "Health: " + player.Lives, new Vector2(670,450), Color.Black);
+                spriteBatch.DrawString(controlScreen, "Health: " + player.Lives, new Vector2(0,50), Color.Black);
 
             }
             if (gameState == GameState.Gameover) // if in the menu, just draw the menu
