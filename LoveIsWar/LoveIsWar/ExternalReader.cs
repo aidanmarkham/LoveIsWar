@@ -40,6 +40,9 @@ namespace LoveIsWar
                     filenames[i] = line;
                 }
 
+                //close the stream
+                input.Close();
+
                 
             }
             catch(Exception ex)
