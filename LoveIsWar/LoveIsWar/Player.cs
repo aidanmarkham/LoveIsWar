@@ -155,14 +155,20 @@ namespace LoveIsWar
             }
 
             // handles when the player is hit by a bullet- reduces number of lives left
-            for (int i = 0; i < bullets.Count; i++)
+            for (int i = 0; i < level.Enemies.Count; i++)
             {
-                if (bullets[i] != null)
+                if (level.Enemies[i] != null)
                 {
-                    if (bullets[i].CheckCollision(this))
+                    for (int j = 0; j < level.Enemies[i].Bullets.Count; j++)
                     {
-                        //bullets[i] = null;  this just causes the player bullets to disappear when they're fired
-                        lives--;
+                        if (level.Enemies[i].Bullets[j] != null)
+                        {
+                            if (level.Enemies[i].Bullets[j].CheckCollision(this))
+                            {
+                                //bullets[i] = null;  this just causes the player bullets to disappear when they're fired
+                                lives--;
+                            }
+                        }
                     }
                 }
             }
@@ -173,7 +179,7 @@ namespace LoveIsWar
                 isDead = true;
             }
 
-                bulletTime += deltaTime.Milliseconds; //updates bullet counter
+            bulletTime += deltaTime.Milliseconds; //updates bullet counter
 
         }
 
@@ -202,6 +208,12 @@ namespace LoveIsWar
                 }
             }
             base.Draw(sb);
+        }
+
+        public List<Bullet> Bullets
+        {
+            get { return bullets; }
+            set { bullets = value; }
         }
     }
 }
