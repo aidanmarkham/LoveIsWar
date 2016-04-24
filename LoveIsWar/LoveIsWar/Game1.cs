@@ -76,7 +76,7 @@ namespace LoveIsWar
             controlScreen = Content.Load<SpriteFont>("mainFont");//font for the controls
             controls = Content.Load<Texture2D>("Controls");//image for the controls
 
-            playerTexture = Content.Load<Texture2D>("Images/Level1/AyumiDraft2_SpriteOnly"); // loads the player texture
+            playerTexture = Content.Load<Texture2D>("Images/Level1/AyumiDraft2_OnlySprite"); // loads the player texture
             
 
             bulletTexture = Content.Load<Texture2D>("Bullet"); //loads in bullet texture
