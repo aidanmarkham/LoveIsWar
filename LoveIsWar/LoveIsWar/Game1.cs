@@ -127,8 +127,7 @@ namespace LoveIsWar
                     {
                         if (ms.Position.Y >= (this.GraphicsDevice.Viewport.Height / 2) - 100 && ms.Position.Y <= ((this.GraphicsDevice.Viewport.Height / 2) - 100) + 50)
                         {
-                            player.Lives = 100;
-                            player.Score = 0;
+                            player.Reset();
                             gameState = GameState.Game;
                         }
                     }
@@ -198,10 +197,15 @@ namespace LoveIsWar
                         {
                             if (ms.Position.Y >= (this.GraphicsDevice.Viewport.Height / 2) - 100 && ms.Position.Y <= ((this.GraphicsDevice.Viewport.Height / 2) - 100) + 50)
                             {
+
                                 player.Lives = 100;
                                 player.Score = 0;
                                 level.Enemies = new List<Enemy>();
                                 player.Bullets = new List<Bullet>();
+
+                                player.Reset();
+                                level.Enemies = new List<Enemy>();
+
                                 gameState = GameState.Game;
                             }
                         }
