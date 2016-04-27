@@ -26,7 +26,7 @@ namespace LoveIsWar
 
         public void Reset()
         {
-            lives = 100;
+            lives = 10;
             score = 0;
             bullets = new List<Bullet>();
         }
@@ -38,7 +38,7 @@ namespace LoveIsWar
             screenHeight = scrHeight;
             location = new Rectangle(screenWidth / 2, scrHeight - texture.Height, texture.Width, texture.Height);
             playerBullet = new Bullet(bulletTex);
-            speed = 6;
+            speed = 7;
             dampening = 1.3f;
             bulletTime = 0;
             fireRate = 400;
