@@ -74,22 +74,22 @@ namespace LoveIsWar
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            bgTexture = Content.Load<Texture2D>(exRead.filenames[5]);//load in background texture
-            enemyTexture = Content.Load<Texture2D>(exRead.filenames[7]); 
+            bgTexture = Content.Load<Texture2D>("Images/Level1/Background_Draft1");//load in background texture
+            enemyTexture = Content.Load<Texture2D>("Images/Level1/Senpai"); 
             
 
             //menuImg = Content.Load<Texture2D>(exRead.filenames[1]); // image for menu, will be stretched across screen
 
-            button1 = Content.Load<Texture2D>(exRead.filenames[3]);//image for the button
-            buttonWord = Content.Load<SpriteFont>(exRead.filenames[0]);//font for the button
+            button1 = Content.Load<Texture2D>("unfinishedButton");//image for the button
+            buttonWord = Content.Load<SpriteFont>("mainFont");//font for the button
 
-            controlScreen = Content.Load<SpriteFont>(exRead.filenames[0]);//font for the controls
-            controls = Content.Load<Texture2D>(exRead.filenames[2]);//image for the controls
+            controlScreen = Content.Load<SpriteFont>("mainFont");//font for the controls
+            controls = Content.Load<Texture2D>("Controls");//image for the controls
 
-            playerTexture = Content.Load<Texture2D>(exRead.filenames[6]); // loads the player texture
+            playerTexture = Content.Load<Texture2D>("Images/Level1/AyumiDraft2_OnlySprite"); // loads the player texture
             
 
-            bulletTexture = Content.Load<Texture2D>(exRead.filenames[4]); //loads in bullet texture
+            bulletTexture = Content.Load<Texture2D>("Bullet"); //loads in bullet texture
             player = new Player(playerTexture, bulletTexture, this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height); // constructs the player with the texture
             
             //gameObjects.Add(level); //adds a level object to the array of things to be drawn
