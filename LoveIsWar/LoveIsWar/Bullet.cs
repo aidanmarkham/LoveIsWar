@@ -37,7 +37,7 @@ namespace LoveIsWar
         {
             this.active = bullet.active;
             this.location = bullet.location;
-            this.speed = 7;
+            this.speed = 6; // speed of the bullet
         }
 
         //CheckCollision method (returns a boolean to be checked in the update method)

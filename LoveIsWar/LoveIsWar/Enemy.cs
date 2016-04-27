@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace LoveIsWar
 {
@@ -16,6 +17,16 @@ namespace LoveIsWar
         int bulletTime;
         int fireRate;
         Player player;
+        double xSpeed; // speed at which the enemy is moving horizontally
+        Viewport Viewport;
+
+
+        //property for the horizontal speed of the enemies
+        public Double XSpeed
+        {
+            get { return xSpeed; }
+            set { xSpeed = value; }
+        }
 
         public Enemy(Texture2D tex, Texture2D bullet, Player gamePlayer, Random rand)
             : base(tex)
@@ -26,6 +37,7 @@ namespace LoveIsWar
             fireRate = 1000;
             location.Y = -tex.Height;
             location.X = rand.Next(0, 600 - tex.Width);
+            xSpeed = (rand.NextDouble() - rand.NextDouble()) / 2;
             bullets = new List<Bullet>();
             player = gamePlayer;
         }
@@ -40,7 +52,16 @@ namespace LoveIsWar
         }
         public override void Update(TimeSpan deltaTime)
         {
-            location.Y += (int)(0.1 * deltaTime.Milliseconds);
+            location.Y += (int)(0.2 * deltaTime.Milliseconds);
+
+            // once the enemies reach a random point close to the character, they'll start moving with a horizontal speed
+            if (location.Y >= 200)
+            {
+                location.X += (int)(xSpeed * deltaTime.Milliseconds); // change in horizontal direction
+            }
+            
+
+            
             if (bulletTime > fireRate)
             {
                 Shoot();

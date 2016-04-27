@@ -162,7 +162,7 @@ namespace LoveIsWar
                     for (int i = 0; i < gameObjects.Count; i++)
                     {
                         gameObjects[i].Update(gameTime.ElapsedGameTime); //update all of the default gameobjects
-
+                        
                     }
                     player.Update(Keyboard.GetState(), gameTime.ElapsedGameTime, level);
                     level.Update(gameTime.ElapsedGameTime);
