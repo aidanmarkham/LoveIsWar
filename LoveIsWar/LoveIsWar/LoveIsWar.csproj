@@ -44,6 +44,7 @@
     <Compile Include="ExternalReader.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameObject.cs" />
+    <Compile Include="Highscore.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="Pickup.cs" />
     <Compile Include="Player.cs" />
