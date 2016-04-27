@@ -65,6 +65,10 @@ namespace LoveIsWar
                     {
                         enemies[i] = null;
                         player.Score -= 200;
+                        if(player.Score<0)
+                        {
+                            player.Score = 0;
+                        }
                     }
                 }
             }
