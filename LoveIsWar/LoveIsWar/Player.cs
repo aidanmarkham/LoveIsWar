@@ -41,7 +41,7 @@ namespace LoveIsWar
             speed = 6;
             dampening = 1.3f;
             bulletTime = 0;
-            fireRate = 100;
+            fireRate = 400;
         }
 
         // property that returns the current number of lives the player has

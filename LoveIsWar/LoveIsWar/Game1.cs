@@ -161,7 +161,7 @@ namespace LoveIsWar
                     for (int i = 0; i < gameObjects.Count; i++)
                     {
                         gameObjects[i].Update(gameTime.ElapsedGameTime); //update all of the default gameobjects
-
+                        
                     }
                     player.Update(Keyboard.GetState(), gameTime.ElapsedGameTime, level);
                     level.Update(gameTime.ElapsedGameTime);
@@ -192,7 +192,7 @@ namespace LoveIsWar
 
                     if (ms.LeftButton == ButtonState.Pressed)//tests if its on the restart button
                     {
-                        if (ms.Position.X >= (this.GraphicsDevice.Viewport.Width / 2) - 100 && ms.Position.X <= ((this.GraphicsDevice.Viewport.Width / 2) - 100) + 200)
+                        if (ms.Position.X >= (this.GraphicsDevice.Viewport.Width / 2) - 300 && ms.Position.X <= ((this.GraphicsDevice.Viewport.Width / 2) - 300) + 200)
                         {
                             if (ms.Position.Y >= (this.GraphicsDevice.Viewport.Height / 2) - 100 && ms.Position.Y <= ((this.GraphicsDevice.Viewport.Height / 2) - 100) + 50)
                             {
@@ -213,7 +213,7 @@ namespace LoveIsWar
 
                     if (ms.LeftButton == ButtonState.Pressed)//tests if its on the mainmenu button
                     {
-                        if (ms.Position.X >= (this.GraphicsDevice.Viewport.Width / 2) - 100 && ms.Position.X <= ((this.GraphicsDevice.Viewport.Width / 2) - 100) + 200)
+                        if (ms.Position.X >= (this.GraphicsDevice.Viewport.Width / 2) - 300 && ms.Position.X <= ((this.GraphicsDevice.Viewport.Width / 2) - 300) + 200)
                         {
                             if (ms.Position.Y >= (this.GraphicsDevice.Viewport.Height / 2) && ms.Position.Y <= ((this.GraphicsDevice.Viewport.Height / 2)) + 50)
                             {
@@ -225,7 +225,7 @@ namespace LoveIsWar
                     }
                     if (ms.LeftButton == ButtonState.Pressed)//tests if its on the quit button
                     {
-                        if (ms.Position.X >= (this.GraphicsDevice.Viewport.Width / 2) - 100 && ms.Position.X <= ((this.GraphicsDevice.Viewport.Width / 2) - 100) + 200)
+                        if (ms.Position.X >= (this.GraphicsDevice.Viewport.Width / 2) - 300 && ms.Position.X <= ((this.GraphicsDevice.Viewport.Width / 2) - 300) + 200)
                         {
                             if (ms.Position.Y >= (this.GraphicsDevice.Viewport.Height / 2) + 100 && ms.Position.Y <= ((this.GraphicsDevice.Viewport.Height / 2) + 100) + 50)
                             {
@@ -298,16 +298,17 @@ namespace LoveIsWar
             if (gameState == GameState.Gameover) // if in the menu, just draw the menu
             {
                 this.IsMouseVisible = true;
-                //spriteBatch.Draw(menuImg, new Rectangle(0, 0, this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height), Color.White);
-                Button startButton = new Button((this.GraphicsDevice.Viewport.Width / 2) - 100, (this.GraphicsDevice.Viewport.Height / 2) - 100, 200, 50, button1, buttonWord);//restart button
-                Button mainButton = new Button((this.GraphicsDevice.Viewport.Width / 2) - 100, this.GraphicsDevice.Viewport.Height / 2, 200, 50, button1, buttonWord);//mainmenu button
-                Button quitButton = new Button((this.GraphicsDevice.Viewport.Width / 2) - 100, (this.GraphicsDevice.Viewport.Height / 2) + 100, 200, 50, button1, buttonWord);//quit button
+                
+                Button startButton = new Button((this.GraphicsDevice.Viewport.Width / 2) - 300, (this.GraphicsDevice.Viewport.Height / 2) - 100, 200, 50, button1, buttonWord);//restart button
+                Button mainButton = new Button((this.GraphicsDevice.Viewport.Width / 2) - 300, this.GraphicsDevice.Viewport.Height / 2, 200, 50, button1, buttonWord);//mainmenu button
+                Button quitButton = new Button((this.GraphicsDevice.Viewport.Width / 2) - 300, (this.GraphicsDevice.Viewport.Height / 2) + 100, 200, 50, button1, buttonWord);//quit button
                 startButton.Drawbutton(spriteBatch, "Restart");
                 mainButton.Drawbutton(spriteBatch, "MainMenu");
                 quitButton.Drawbutton(spriteBatch, "Quit");
 
                 spriteBatch.DrawString(controlScreen, "LOVE IS WAR", new Vector2((this.GraphicsDevice.Viewport.Width / 2) - 100, 50), Color.Black);
-                spriteBatch.DrawString(controlScreen, "Score: "+ player.Score, new Vector2((this.GraphicsDevice.Viewport.Width / 2) - 100, 100), Color.Black);
+                spriteBatch.DrawString(controlScreen, "YOU HAVE DIED!", new Vector2((this.GraphicsDevice.Viewport.Width / 2) - 100, 100), Color.Black);
+                spriteBatch.DrawString(controlScreen, "Your score: "+ player.Score, new Vector2((this.GraphicsDevice.Viewport.Width / 2) - 100, 150), Color.Black);
             }
             spriteBatch.End();
             // TODO: Add your drawing code here
