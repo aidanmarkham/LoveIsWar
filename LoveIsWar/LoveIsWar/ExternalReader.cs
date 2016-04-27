@@ -10,7 +10,7 @@ namespace LoveIsWar
     class ExternalReader
     {
         //array containing values
-        string[] filenames = new string[8];
+        public string[] filenames = new string[8];
         //CHANGE LENGTH OF STRING ARRAY TO ADJUST FOR ADDITIONAL FILES
 
 
@@ -37,6 +37,21 @@ namespace LoveIsWar
                 for(int i = 0; i < filenames.Length; i++)
                 {
                     string line = input.ReadString();
+                    //replace the double backslashes with a single forward slash in each filename
+                    line = line.Replace('\\', '/');
+                    //remove trailing filetypes
+                    string[] remove = { ".png", ".xnb" };
+                    foreach (string item in remove)
+                    {
+                        if(line.EndsWith(item))
+                        {
+                            line = line.Substring(0, line.LastIndexOf(item));
+                            break;
+                        }
+                    }
+                    //remove leading "Content/"
+                    line = line.Substring(8);
+
                     filenames[i] = line;
                 }
 
