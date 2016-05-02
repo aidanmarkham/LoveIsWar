@@ -293,6 +293,7 @@ namespace LoveIsWar
                 //All UI drawing goes after this line
                 
                 spriteBatch.DrawString(controlScreen, "Score: "+player.Score , new Vector2(0, 0), Color.Black);
+                spriteBatch.DrawString(controlScreen, "Combo: x" + (player.Combo +1), new Vector2(0, 25), Color.Black);
                 spriteBatch.DrawString(controlScreen, "Health: " + player.Lives, new Vector2(0,50), Color.Black);
 
             }

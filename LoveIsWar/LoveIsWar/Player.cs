@@ -18,6 +18,7 @@ namespace LoveIsWar
         int screenHeight;
         int lives = 3; // number of times the player can be hit by bullets before it's game over
         int score = 0; // current score
+        int combo = 0; // current combo
         Boolean isDead = false;
 
         double bulletTime;
@@ -31,6 +32,8 @@ namespace LoveIsWar
             bullets = new List<Bullet>();
         }
 
+        
+
         public Player(Texture2D tex, Texture2D bulletTex, int scrWidth, int scrHeight)
             : base(tex)
         {
@@ -42,6 +45,13 @@ namespace LoveIsWar
             dampening = 1.3f;
             bulletTime = 0;
             fireRate = 400;
+        }
+
+        // combo property
+        public int Combo
+        {
+            get { return combo; }
+            set { combo = value; }
         }
 
         // property that returns the current number of lives the player has
@@ -146,7 +156,8 @@ namespace LoveIsWar
                         {
                             level.Enemies[j] = null;
                             bullets[i] = null;
-                            score += 100; // add 100 to the score each time an enemy is killed
+                            combo++;
+                            score += 100 * combo; // add 100 to the score each time an enemy is killed
                         }
                     }
                     /*
@@ -172,8 +183,11 @@ namespace LoveIsWar
                         {
                             if (level.Enemies[i].Bullets[j].CheckCollision(this))
                             {
+                                combo = 0; // reset the combo when the player is hit
+
                                 //bullets[i] = null;  this just causes the player bullets to disappear when they're fired
                                 lives--;
+                                
                             }
                         }
                     }
