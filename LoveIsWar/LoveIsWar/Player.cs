@@ -16,9 +16,9 @@ namespace LoveIsWar
         Bullet playerBullet;
         int screenWidth;
         int screenHeight;
-        int lives = 3; // number of times the player can be hit by bullets before it's game over
-        int score = 0; // current score
-        int combo = 0; // current combo
+        int lives; // number of times the player can be hit by bullets before it's game over
+        int score; // current score
+        int combo; // current combo
         Boolean isDead = false;
 
         double bulletTime;
@@ -41,10 +41,13 @@ namespace LoveIsWar
             screenHeight = scrHeight;
             location = new Rectangle(screenWidth / 2, scrHeight - texture.Height, texture.Width, texture.Height);
             playerBullet = new Bullet(bulletTex);
-            speed = 7;
+            speed = 9;
             dampening = 1.3f;
             bulletTime = 0;
             fireRate = 400;
+            lives = 3;
+            score = 0;
+            combo = 0;
         }
 
         // combo property
