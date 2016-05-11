@@ -68,6 +68,12 @@
     <Content Include="Content\Controls.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Images\Level1\Background_Draft2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Images\Level1\End_Image.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Images\Level1\Senpai.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -102,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Sound\" />
+    <Content Include="Content\images.dat" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
