@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -28,7 +29,8 @@ namespace LoveIsWar
         Texture2D controls;
         SpriteFont buttonWord;
         SpriteFont controlScreen;
-
+        public List<SoundEffect> grunts;
+        Random rand;
         GameState gameState;
         enum GameState { Menu, Game, Controls, Gameover };
         public Game1()
@@ -49,7 +51,7 @@ namespace LoveIsWar
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            rand = new Random();
 
 
             gameObjects = new List<GameObject>(); // inits the list
@@ -57,6 +59,7 @@ namespace LoveIsWar
             gameState = GameState.Menu;
 
             base.Initialize();
+            
         }
 
         /// <summary>
@@ -95,6 +98,11 @@ namespace LoveIsWar
             //gameObjects.Add(level); //adds a level object to the array of things to be drawn
             //gameObjects.Add(player); // adds the player to the lits of things that will be drawn
             level = new Level(bgTexture, enemyTexture, bulletTexture, this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height, player); //construct level object with the textue loaded
+            grunts = new List<SoundEffect>();
+            grunts.Add(Content.Load<SoundEffect>("Sound/AidenGrunts1"));
+            grunts.Add(Content.Load<SoundEffect>("Sound/AidenGrunts2"));
+            grunts.Add(Content.Load<SoundEffect>("Sound/AidenGrunts3"));
+            grunts.Add(Content.Load<SoundEffect>("Sound/AidenGrunts4"));
 
         }
 
@@ -164,8 +172,8 @@ namespace LoveIsWar
                         gameObjects[i].Update(gameTime.ElapsedGameTime); //update all of the default gameobjects
                         
                     }
-                    player.Update(Keyboard.GetState(), gameTime.ElapsedGameTime, level);
-                    level.Update(gameTime.ElapsedGameTime);
+                    player.Update(Keyboard.GetState(), gameTime.ElapsedGameTime, level, grunts[rand.Next(0, grunts.Count)]);
+                    level.Update(gameTime.ElapsedGameTime, grunts[rand.Next(0, grunts.Count)]);
                     if (player.Lives <= 0)
                     {
                         gameState = GameState.Gameover;

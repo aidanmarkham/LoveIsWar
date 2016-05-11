@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -78,7 +79,7 @@ namespace LoveIsWar
             set { score = value; }
         }
 
-        public void Update(KeyboardState kb, TimeSpan deltaTime, Level level)
+        public void Update(KeyboardState kb, TimeSpan deltaTime, Level level, SoundEffect grunt)
         {
 
             if (kb.IsKeyDown(Keys.Up))
@@ -158,6 +159,7 @@ namespace LoveIsWar
                         if (bullets[i].CheckCollision(level.Enemies[j]))
                         {
                             level.Enemies[j] = null;
+                            grunt.Play();
                             bullets[i] = null;
                             combo++;
                             score += 100 * combo; // add 100 to the score each time an enemy is killed
