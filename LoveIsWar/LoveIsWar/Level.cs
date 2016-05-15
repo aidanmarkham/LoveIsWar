@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 
 namespace LoveIsWar
 {
@@ -35,7 +36,7 @@ namespace LoveIsWar
             player = gamePlayer;
             rand = new Random();
         }
-        public override void Update(TimeSpan deltaTime)
+        public void Update(TimeSpan deltaTime, SoundEffect grunt)
         {
             enemyCounter += deltaTime; //increases the counter by the amount of time since the last update
             location.Y += 3; //moves the floor 
@@ -63,6 +64,7 @@ namespace LoveIsWar
                 {
                     if (enemies[i].location.Y > location.Height)
                     {
+                        
                         enemies[i] = null;
                         player.Score -= 200;
                         if(player.Score<0)
@@ -77,6 +79,7 @@ namespace LoveIsWar
             {
                 if (enemies[i] == null)
                 {
+                    
                     enemies.RemoveAt(i);
                 }
             }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -24,11 +25,13 @@ namespace LoveIsWar
         Texture2D bulletTexture; // makes a texture for the bullets in the game
         Texture2D enemyTexture;
         Texture2D menuImg;
+        Texture2D endImg;
         Texture2D button1;
         Texture2D controls;
         SpriteFont buttonWord;
         SpriteFont controlScreen;
-
+        public List<SoundEffect> grunts;
+        Random rand;
         GameState gameState;
         enum GameState { Menu, Game, Controls, Gameover };
         public Game1()
@@ -49,7 +52,7 @@ namespace LoveIsWar
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            rand = new Random();
 
 
             gameObjects = new List<GameObject>(); // inits the list
@@ -57,6 +60,7 @@ namespace LoveIsWar
             gameState = GameState.Menu;
 
             base.Initialize();
+            
         }
 
         /// <summary>
@@ -75,10 +79,13 @@ namespace LoveIsWar
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             bgTexture = Content.Load<Texture2D>("Images/Level1/Background_Draft1");//load in background texture
-            enemyTexture = Content.Load<Texture2D>("Images/Level1/Senpai"); 
-            
 
-            //menuImg = Content.Load<Texture2D>(exRead.filenames[1]); // image for menu, will be stretched across screen
+            enemyTexture = Content.Load<Texture2D>("Images/Level1/Senpai");
+
+
+            menuImg = Content.Load<Texture2D>("Images/Level1/Background_Draft2"); // image for menu, will be stretched across screen
+
+            endImg = Content.Load<Texture2D>("Images/Level1/End_Image");
 
             button1 = Content.Load<Texture2D>("unfinishedButton");//image for the button
             buttonWord = Content.Load<SpriteFont>("mainFont");//font for the button
@@ -95,6 +102,11 @@ namespace LoveIsWar
             //gameObjects.Add(level); //adds a level object to the array of things to be drawn
             //gameObjects.Add(player); // adds the player to the lits of things that will be drawn
             level = new Level(bgTexture, enemyTexture, bulletTexture, this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height, player); //construct level object with the textue loaded
+            grunts = new List<SoundEffect>();
+            grunts.Add(Content.Load<SoundEffect>("Sound/AidenGrunts1"));
+            grunts.Add(Content.Load<SoundEffect>("Sound/AidenGrunts2"));
+            grunts.Add(Content.Load<SoundEffect>("Sound/AidenGrunts3"));
+            grunts.Add(Content.Load<SoundEffect>("Sound/AidenGrunts4"));
 
         }
 
@@ -164,8 +176,8 @@ namespace LoveIsWar
                         gameObjects[i].Update(gameTime.ElapsedGameTime); //update all of the default gameobjects
                         
                     }
-                    player.Update(Keyboard.GetState(), gameTime.ElapsedGameTime, level);
-                    level.Update(gameTime.ElapsedGameTime);
+                    player.Update(Keyboard.GetState(), gameTime.ElapsedGameTime, level, grunts[rand.Next(0, grunts.Count)]);
+                    level.Update(gameTime.ElapsedGameTime, grunts[rand.Next(0, grunts.Count)]);
                     if (player.Lives <= 0)
                     {
                         gameState = GameState.Gameover;
@@ -247,13 +259,13 @@ namespace LoveIsWar
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Pink);
 
             spriteBatch.Begin(); // begin the spritebatch
             if (gameState == GameState.Menu) // if in the menu, just draw the menu
             {
                 this.IsMouseVisible = true;
-                //spriteBatch.Draw(menuImg, new Rectangle(0, 0, this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height), Color.White);
+                spriteBatch.Draw(menuImg, new Rectangle(0, 0, this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height), Color.White);
                 Button startButton = new Button((this.GraphicsDevice.Viewport.Width / 2) - 100, (this.GraphicsDevice.Viewport.Height / 2) - 100 , 200, 50, button1, buttonWord);//start button
                 Button controlsButton = new Button((this.GraphicsDevice.Viewport.Width / 2) - 100, this.GraphicsDevice.Viewport.Height/2, 200, 50, button1, buttonWord);//controls button
                 Button quitButton = new Button((this.GraphicsDevice.Viewport.Width / 2) - 100, (this.GraphicsDevice.Viewport.Height / 2) + 100, 200, 50, button1, buttonWord);//quit button
@@ -266,6 +278,7 @@ namespace LoveIsWar
             }
             if(gameState == GameState.Controls)
             {
+                spriteBatch.Draw(menuImg, new Rectangle(0, 0, this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height), Color.White);
                 spriteBatch.DrawString(controlScreen, "Arrow keys to move", new Vector2(50, 50), Color.Black);
                 spriteBatch.DrawString(controlScreen, "Space bar to shoot", new Vector2(50, 80), Color.Black);
                 spriteBatch.DrawString(controlScreen, "Escape to quit at anytime", new Vector2(50, 110), Color.Black);
@@ -300,7 +313,7 @@ namespace LoveIsWar
             if (gameState == GameState.Gameover) // if in the menu, just draw the menu
             {
                 this.IsMouseVisible = true;
-                
+                spriteBatch.Draw(endImg, new Rectangle(0, 0, this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height), Color.White);
                 Button startButton = new Button((this.GraphicsDevice.Viewport.Width / 2) - 300, (this.GraphicsDevice.Viewport.Height / 2) - 100, 200, 50, button1, buttonWord);//restart button
                 Button mainButton = new Button((this.GraphicsDevice.Viewport.Width / 2) - 300, this.GraphicsDevice.Viewport.Height / 2, 200, 50, button1, buttonWord);//mainmenu button
                 Button quitButton = new Button((this.GraphicsDevice.Viewport.Width / 2) - 300, (this.GraphicsDevice.Viewport.Height / 2) + 100, 200, 50, button1, buttonWord);//quit button

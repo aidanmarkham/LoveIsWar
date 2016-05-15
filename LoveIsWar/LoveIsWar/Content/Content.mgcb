@@ -13,3 +13,45 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Sound/AidenGrunts1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/AidenGrunts1.wav
+
+#begin Sound/AidenGrunts2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/AidenGrunts2.wav
+
+#begin Sound/AidenGrunts3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/AidenGrunts3.wav
+
+#begin Sound/AidenGrunts4.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/AidenGrunts4.wav
+
+#begin Sound/DavidLadyGrunts1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/DavidLadyGrunts1.wav
+
+#begin Sound/DavidLadyGrunts2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/DavidLadyGrunts2.wav
+
+#begin Sound/DavidLadyGrunts3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/DavidLadyGrunts3.wav
+
